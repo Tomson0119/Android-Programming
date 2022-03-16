@@ -3,9 +3,12 @@ package kr.ac.tukorea.gamekim2016180014.SampleProject;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         setPage(1);
     }
 
@@ -45,13 +50,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setPage(int newPage) {
-        if(newPage <= 0) {
-            newPage = IMAGE_IDS.length;
+        if(newPage <= 0 || newPage > IMAGE_IDS.length) {
+            return;
         }
-        else if(newPage > IMAGE_IDS.length) {
-            newPage = 1;
-        }
+
         page = newPage;
+        handleButtonStatus(page);
 
         String text = page + " / " + IMAGE_IDS.length;
         TextView view = findViewById(R.id.pageText);
@@ -59,5 +63,22 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView img = findViewById(R.id.contentImageView);
         img.setImageResource(IMAGE_IDS[page-1]);
+    }
+
+    private void handleButtonStatus(int page) {
+        ImageButton btnPrev = findViewById(R.id.btnPrev);
+        ImageButton btnNext = findViewById(R.id.btnNext);
+
+        if(page == 1) {
+            btnPrev.setEnabled(false);
+        } else {
+            btnPrev.setEnabled(true);
+        }
+
+        if(page == IMAGE_IDS.length) {
+            btnNext.setEnabled(false);
+        } else {
+            btnNext.setEnabled(true);
+        }
     }
 }
