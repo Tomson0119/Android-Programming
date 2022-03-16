@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        hideActionBar();
         setPage(1);
     }
 
@@ -47,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     public void onButtonNext(View view) {
         setPage(page+1);
         Log.d(TAG, "Button next pushed.");
+    }
+
+    private void hideActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
     private void setPage(int newPage) {
