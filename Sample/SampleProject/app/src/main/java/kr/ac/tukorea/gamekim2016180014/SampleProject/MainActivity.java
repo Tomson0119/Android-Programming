@@ -1,5 +1,6 @@
 package kr.ac.tukorea.gamekim2016180014.SampleProject;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         hideActionBar();
-        setPage(1);
+        setPage(loadPageNum());
     }
 
     public void onButtonPrev(View view) {
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         page = newPage;
         handleButtonStatus(page);
+        savePageNum();
 
         String text = page + " / " + IMAGE_IDS.length;
         TextView view = findViewById(R.id.pageText);
@@ -84,5 +86,19 @@ public class MainActivity extends AppCompatActivity {
         } else {
             btnNext.setEnabled(true);
         }
+    }
+
+    private void savePageNum() {
+        SharedPreferences pref = getSharedPreferences("PageNum", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("page", page);
+        editor.commit();
+        Log.d(TAG, "Page saved");
+    }
+
+    private int loadPageNum() {
+        SharedPreferences pref = getSharedPreferences("PageNum", MODE_PRIVATE);
+        int num = pref.getInt("page", 1);
+        return num;
     }
 }
