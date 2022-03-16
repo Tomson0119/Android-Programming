@@ -6,53 +6,61 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:visibility="visible"
+
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center"
-            android:onClick="onButtonPrev"
-            android:src="@mipmap/prev"
-            android:background="@android:color/transparent"/>
-
-        <TextView
-            android:id="@+id/pageText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:text="1 / 5"
-            android:textColor="#000000"
-            android:textSize="35sp"
-            android:textStyle="bold|italic" />
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/button2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center"
-            android:src="@mipmap/next"
-            android:onClick="onButtonNext"
-            android:background="@android:color/transparent"/>
+            <ImageButton
+                android:id="@+id/btnPrev"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:onClick="onButtonPrev"
+                android:background="@drawable/selector_prev"/>
+
+            <TextView
+                android:id="@+id/pageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="1 / 5"
+                android:textColor="#000000"
+                android:textSize="35sp"
+                android:textStyle="bold|italic" />
+
+            <ImageButton
+                android:id="@+id/btnNext"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:onClick="onButtonNext"
+                android:background="@drawable/selector_next"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/contentImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/cat1"
+            android:scaleType="centerCrop"/>
 
     </LinearLayout>
-    <ImageView
-        android:id="@+id/contentImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/cat1"
-        android:layout_gravity="center"/>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>
