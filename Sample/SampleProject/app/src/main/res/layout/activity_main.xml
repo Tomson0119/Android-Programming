@@ -13,18 +13,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitCenter"
             android:layout_gravity="center"
-            android:text="Push"
-            android:onClick="onButtonPrev"/>
+            android:onClick="onButtonPrev"
+            android:src="@mipmap/prev"
+            android:background="@android:color/transparent"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/pageText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="1 / 5"
@@ -32,15 +36,23 @@
             android:textSize="35sp"
             android:textStyle="bold|italic" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitCenter"
             android:layout_gravity="center"
-            android:text="Push"
-            android:onClick="onButtonNext"/>
+            android:src="@mipmap/next"
+            android:onClick="onButtonNext"
+            android:background="@android:color/transparent"/>
 
     </LinearLayout>
-
+    <ImageView
+        android:id="@+id/contentImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/cat1"
+        android:layout_gravity="center"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
