@@ -1,6 +1,8 @@
 package kr.ac.tukorea.gamekim2016180014.SampleProject;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,17 +18,20 @@ import java.util.ArrayList;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TextView txtView = findViewById(R.id.nameText);
-        txtView.setText("Kim Ji Sung");
     }
 
-    private void onButtonPushed() {
-        TextView txtView = findViewById(R.id.nameText);
-        txtView.setText("Button has pushed");
+    public void onButtonPrev(View view) {
+        R.mipmap.
+        Log.d(TAG, "Button prev pushed");
+    }
+
+    public void onButtonNext(View view) {
+        Log.d(TAG, "Button next pushed.");
     }
 }
