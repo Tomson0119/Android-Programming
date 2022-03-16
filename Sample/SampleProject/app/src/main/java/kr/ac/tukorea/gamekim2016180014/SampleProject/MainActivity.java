@@ -3,13 +3,10 @@ package kr.ac.tukorea.gamekim2016180014.SampleProject;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
 
 /**
  * <p>extends : 클래스 상속.</p>
@@ -20,16 +17,15 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static final int MAX_PAGE = 5;
-    protected static int page = 0;
-
-    private static final int[] ImageIds = new int[] {
+    private static final int[] IMAGE_IDS = new int[] {
             R.mipmap.cat1,
             R.mipmap.cat2,
             R.mipmap.cat3,
             R.mipmap.cat4,
             R.mipmap.cat5
     };
+
+    private int page = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void setPage(int newPage) {
         if(newPage <= 0) {
-            newPage = MAX_PAGE;
+            newPage = IMAGE_IDS.length;
         }
-        else if(newPage > MAX_PAGE) {
+        else if(newPage > IMAGE_IDS.length) {
             newPage = 1;
         }
         page = newPage;
 
-        String text = page + " / " + MAX_PAGE;
+        String text = page + " / " + IMAGE_IDS.length;
         TextView view = findViewById(R.id.pageText);
         view.setText(text);
 
-
         ImageView img = findViewById(R.id.contentImageView);
-        img.setImageResource(ImageIds[page-1]);
+        img.setImageResource(IMAGE_IDS[page-1]);
     }
 }
