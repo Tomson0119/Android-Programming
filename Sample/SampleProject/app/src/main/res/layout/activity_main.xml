@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:onClick="onButtonPrev"
-                android:background="@drawable/selector_prev"/>
+                android:background="@drawable/sel_prev"/>
 
             <TextView
                 android:id="@+id/pageText"
@@ -49,7 +49,7 @@
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
                 android:onClick="onButtonNext"
-                android:background="@drawable/selector_next"
+                android:background="@drawable/sel_next"
                 />
 
         </LinearLayout>
