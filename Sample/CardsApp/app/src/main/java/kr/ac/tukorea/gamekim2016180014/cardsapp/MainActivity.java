@@ -7,8 +7,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private ImageButton prevCardButton = null;
+    private int cardsRemain = 0;
     private int flips = 0;
     private TextView scoreTextView = null;
 
@@ -34,12 +39,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Button btn = findViewById(R.id.restartBtn);
+        btn.setText(R.string.restart);
         scoreTextView = findViewById(R.id.scoreTextView);
         startGame();
     }
 
     private void startGame() {
+        cardsRemain = BUTTON_IDS.length;
+
+        Random random = new Random();
+        for(int i = 0; i < resIds.length; i++) {
+            int t = random.nextInt(resIds.length);
+
+            int temp = resIds[t];
+            resIds[t] = resIds[i];
+            resIds[i] = temp;
+        }
+
         for(int i = 0; i < BUTTON_IDS.length; i++) {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             btn.setVisibility(View.VISIBLE);
@@ -67,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(prevCardButton == btn) {
             Log.d(TAG, "Same card");
+            Toast.makeText(this, R.string.same_card, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -78,8 +96,9 @@ public class MainActivity extends AppCompatActivity {
                 btn.setVisibility(View.INVISIBLE);
                 prevCardButton = null;
 
-
-
+                cardsRemain -= 2;
+                if(cardsRemain == 0)
+                    askRetry();
             } else {
                 btn.setImageResource(resId);
                 prevCardButton.setImageResource(R.mipmap.card_blue_back);
@@ -95,8 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setScore(int score) {
         flips = score;
-        String txt = "Flips: " + flips;
-        scoreTextView.setText(txt);
+        String fmt = getString(R.string.flip_fmt);
+        String s = String.format(fmt, flips);
+        scoreTextView.setText(s);
     }
 
     private int findButtonIndex(int id) {
@@ -112,15 +132,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void askRetry() {
         AlertDialog alert = new AlertDialog.Builder(this)
-            .setTitle("Restart?")
-            .setMessage("Do you really want to restart the game?")
-            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            .setTitle(R.string.restart)
+            .setMessage(R.string.restart_message)
+            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     startGame();
                 }
             })
-            .setNegativeButton("No", null)
+            .setNegativeButton(R.string.no, null)
             .create();
         alert.show();
     }
