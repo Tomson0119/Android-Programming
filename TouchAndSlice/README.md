@@ -24,8 +24,11 @@ UI : 현재 스코어, 최대 스코어, 시간, 결과화면, 메뉴화면에�
 
 ## 게임 흐름
 1. 메뉴 화면
+
 ![menu](../image/menu.png)
+
 2. 게임 화면
 ![fruit ninja](https://www.windowscentral.com/sites/wpcentral.com/files/styles/large/public/postimages/5516/FruitNinja.jpg)
+
 3. 결과 UI(게임 화면에 속함)
 ![result](https://appsgag.com/screenshots/1604218993.fruitninja-apk-install.jpg)
