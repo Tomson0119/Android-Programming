@@ -29,14 +29,21 @@ UI : 현재 스코어, 최대 스코어, 시간, 결과화면, 메뉴화면에�
 ![schedule](../image/schedule.png)
 
 ## 게임 흐름
-1. 메뉴 화면
+**1. 메뉴 화면**
 
 ![menu](../image/menu.png)
+> 메뉴 화면은 간단한 텍스트와 배경 이미지로만 이루어져 있으므로, menu_activity을 로드하는 것으로 한다.
 
-2. 게임 화면
+**2. 게임 화면**
 
 ![fruit ninja](https://www.windowscentral.com/sites/wpcentral.com/files/styles/large/public/postimages/5516/FruitNinja.jpg)
+> 게임 화면은 이동하는 물체와 상호작용이 많기 때문에, game_activity 에서 여러가지 gameView들을 동적으로 생성할 수 있도록 한다.
 
-3. 결과 화면
+**3. 결과 화면**
 
 ![result](https://appsgag.com/screenshots/1604218993.fruitninja-apk-install.jpg)
+> 결과 화면은 메뉴 화면과 마찬가지로 고정된 view로만 이루어질 예정으로, result_activity로 생성한다.
+
+## 추가 아이디어
+- 일정 점수 이상 획득 시, 보너스 이벤트로써 많은 오브젝트를 비가 내리는 것처럼 제공한다.
+- 난이도를 높이기 위해 오브젝트를 투명화시킨다. 플레이어는 오브젝트의 이동 경로를 예측해서 잘라야 한다.
