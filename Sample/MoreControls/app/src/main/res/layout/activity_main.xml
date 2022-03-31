@@ -41,15 +41,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/do_it"
-            android:onClick="onBtnDoIt"/>
+            android:layout_weight="1"
+            android:onClick="onBtnDoIt"
+            android:text="@string/do_it" />
 
         <kr.ac.tukorea.gamekim2016180014.morecontrols.GameView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
+            android:layout_weight="1"
             android:padding="10dp"/>
 
     </LinearLayout>
@@ -60,6 +62,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_margin="10dp"
-        android:padding="10dp"/>
+        android:padding="60dp"/>
 
 </LinearLayout>

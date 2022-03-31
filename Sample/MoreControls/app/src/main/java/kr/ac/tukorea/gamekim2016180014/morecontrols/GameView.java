@@ -25,22 +25,20 @@ public class GameView extends View {
     public GameView(Context context) {
         super(context);
         initView();
-        setRect(100);
     }
     public GameView(Context context, AttributeSet as) {
         super(context, as);
         initView();
-        setRect(100);
     }
 
-    private void setRect(int r) {
-        int width = getWidth();
-        int height = getHeight();
+    private void setRect() {
+        int width = getWidth() - getPaddingLeft() - getPaddingRight();
+        int height = getHeight() - getPaddingTop() - getPaddingBottom();
 
-        int cx = getPaddingLeft() + (width-getPaddingLeft() - getPaddingRight()) / 2;
-        int cy = getPaddingTop() + (height-getPaddingTop() - getPaddingBottom()) / 2;
+        int cx = getPaddingLeft() + width / 2;
+        int cy = getPaddingTop() + height / 2;
 
-        radius = r;
+        radius = (width < height) ? width/6 : height/6;
         int left = cx - radius;
         int right = cx + radius;
         int top = cy - radius;
@@ -60,6 +58,7 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        setRect();
         canvas.drawBitmap(soccerBitmap, srcRect, dstRect, null);
     }
 }
