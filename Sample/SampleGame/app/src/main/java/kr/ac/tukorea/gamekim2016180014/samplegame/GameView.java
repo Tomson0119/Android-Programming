@@ -2,14 +2,11 @@ package kr.ac.tukorea.gamekim2016180014.samplegame;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,39 +14,19 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-
-class Ball {
-    public int dx;
-    public int dy;
-    public Rect dstRect;
-
-    public Ball(int dx, int dy, Rect rect) {
-        this.dx = dx;
-        this.dy = dy;
-        dstRect = rect;
-    }
-
-    public void updateOffset(View view) {
-        dstRect.offset(dx, dy);
-        if (dstRect.left < 0 || dstRect.right > view.getWidth())
-            dx *= -1;
-        if (dstRect.top < 0 || dstRect.bottom > view.getHeight())
-            dy *= -1;
-    }
-}
+import java.util.Random;
 
 public class GameView extends View implements Choreographer.FrameCallback {
 
     private static final String TAG = GameView.class.getSimpleName();
+    private static final int MAX_BALL = 10;
+    private static final int SPEED = 10;
 
-    private Bitmap soccerBitmap;
-    private Rect srcRect;
     private ArrayList<Ball> balls = new ArrayList<Ball>();
+    private Paint fpsPaint = new Paint();
 
-    private long prevTimeNs;
-    private int fps;
-
-    private Paint fpsPaint;
+    private long prevTimeNs = 0;
+    private int fps = 0;
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -59,24 +36,24 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void initView() {
         Resources res = getResources();
-        soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball);
-        srcRect = new Rect(0, 0, soccerBitmap.getWidth(), soccerBitmap.getHeight());
-        balls.add(new Ball(10, 10, new Rect(0, 0, 100, 100)));
+        Ball.setBitmap(BitmapFactory.decodeResource(res, R.mipmap.soccer_ball));
 
-        prevTimeNs = 0;
-        fps = 0;
+        Random random = new Random();
+        for(int i = 0; i < MAX_BALL; i++) {
+            int dx = random.nextInt(10) + 5;
+            int dy = random.nextInt(10) + 5;
+            balls.add(new Ball(dx,dy,SPEED));
+        }
 
-        fpsPaint = new Paint();
         fpsPaint.setColor(Color.BLUE);
         fpsPaint.setTextSize(100);
     }
 
     @Override
     public void doFrame(long currTimeNs) {
-        long now = currTimeNs;
-        int elapsed = (int)(now - prevTimeNs);
+        int elapsed = (int)(currTimeNs - prevTimeNs);
         fps = 1_000_000_000 / elapsed;
-        prevTimeNs = now;
+        prevTimeNs = currTimeNs;
         update();
         invalidate();
         Choreographer.getInstance().postFrameCallback(this);
@@ -91,23 +68,15 @@ public class GameView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         for (Ball ball : balls) {
-            canvas.drawBitmap(soccerBitmap, srcRect, ball.dstRect, null);
+            ball.draw(canvas);
         }
         canvas.drawText(String.valueOf(fps), 100, 200, fpsPaint);
-        //Log.d(TAG, "On Draw call!");
-    }
-
-    public void onClick() {
-
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-
-            balls.add(new Ball(x, y, new Rect(10, 10, 100, 100)));
+            balls.add(new Ball((int)event.getX(), (int)event.getY(), SPEED));
             return true;
         }
         return false;
