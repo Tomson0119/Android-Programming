@@ -2,7 +2,6 @@ package kr.ac.tukorea.gamekim2016180014.samplegame;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,14 +17,17 @@ import java.util.Random;
 
 public class GameView extends View implements Choreographer.FrameCallback {
 
+    public static View view;
+    public static Resources res;
+
     private static final String TAG = GameView.class.getSimpleName();
     private static final int MAX_BALL = 10;
     private static final int SPEED = 10;
 
-    private ArrayList<Ball> balls = new ArrayList<Ball>();
-    private Fighter fighter = new Fighter();
+    private ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+    private Fighter fighter;
 
-    private Paint fpsPaint = new Paint();
+    private Paint fpsPaint;
     private long prevTimeNs = 0;
     private int fps = 0;
 
@@ -36,17 +38,19 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void initView() {
-        Resources res = getResources();
-        Ball.setBitmap(BitmapFactory.decodeResource(res, R.mipmap.soccer_ball));
-        Fighter.setBitmap(BitmapFactory.decodeResource(res, R.mipmap.plane));
+        view = this;
+        res = getResources();
 
         Random random = new Random();
         for(int i = 0; i < MAX_BALL; i++) {
             int dx = random.nextInt(10) + 5;
             int dy = random.nextInt(10) + 5;
-            balls.add(new Ball(dx,dy,SPEED));
+            gameObjects.add(new Ball(dx,dy,SPEED));
         }
+        fighter = new Fighter();
+        gameObjects.add(fighter);
 
+        fpsPaint = new Paint();
         fpsPaint.setColor(Color.BLUE);
         fpsPaint.setTextSize(100);
     }
@@ -62,18 +66,16 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        for(Ball ball : balls) {
-            ball.update(this);
+        for(GameObject obj : gameObjects) {
+            obj.update();
         }
-        fighter.update(this);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        for (Ball ball : balls) {
-            ball.draw(canvas);
+        for (GameObject obj : gameObjects) {
+            obj.draw(canvas);
         }
-        fighter.draw(canvas);
         canvas.drawText(String.valueOf(fps), 100, 200, fpsPaint);
     }
 

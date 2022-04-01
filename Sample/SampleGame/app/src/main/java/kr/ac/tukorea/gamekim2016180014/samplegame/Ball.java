@@ -1,11 +1,11 @@
 package kr.ac.tukorea.gamekim2016180014.samplegame;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.view.View;
 
-public class Ball {
+public class Ball implements GameObject {
     public int dx;
     public int dy;
 
@@ -20,22 +20,22 @@ public class Ball {
         this.dx = speed * x / len;
         this.dy = speed * y / len;
         dstRect.set(0, 0, 100, 100);
+
+        if(bitmap == null) {
+            bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.soccer_ball);
+            srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        }
     }
 
-    public void update(View view) {
+    public void update() {
         dstRect.offset(dx, dy);
-        if (dstRect.left < 0 || dstRect.right > view.getWidth())
+        if (dstRect.left < 0 || dstRect.right > GameView.view.getWidth())
             dx *= -1;
-        if (dstRect.top < 0 || dstRect.bottom > view.getHeight())
+        if (dstRect.top < 0 || dstRect.bottom > GameView.view.getHeight())
             dy *= -1;
     }
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
-    }
-
-    public static void setBitmap(Bitmap bitmap) {
-        Ball.bitmap = bitmap;
-        srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
     }
 }
