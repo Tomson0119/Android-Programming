@@ -23,8 +23,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final int SPEED = 10;
 
     private ArrayList<Ball> balls = new ArrayList<Ball>();
-    private Paint fpsPaint = new Paint();
+    private Fighter fighter = new Fighter();
 
+    private Paint fpsPaint = new Paint();
     private long prevTimeNs = 0;
     private int fps = 0;
 
@@ -37,6 +38,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void initView() {
         Resources res = getResources();
         Ball.setBitmap(BitmapFactory.decodeResource(res, R.mipmap.soccer_ball));
+        Fighter.setBitmap(BitmapFactory.decodeResource(res, R.mipmap.plane));
 
         Random random = new Random();
         for(int i = 0; i < MAX_BALL; i++) {
@@ -61,8 +63,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void update() {
         for(Ball ball : balls) {
-            ball.updateOffset(this);
+            ball.update(this);
         }
+        fighter.update(this);
     }
 
     @Override
@@ -70,15 +73,20 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (Ball ball : balls) {
             ball.draw(canvas);
         }
+        fighter.draw(canvas);
         canvas.drawText(String.valueOf(fps), 100, 200, fpsPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            balls.add(new Ball((int)event.getX(), (int)event.getY(), SPEED));
-            return true;
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                float x = event.getX();
+                float y = event.getY();
+                fighter.setPosition(x, y);
+                return true;
         }
-        return false;
+        return super.onTouchEvent(event);
     }
 }

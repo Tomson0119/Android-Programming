@@ -22,7 +22,7 @@ public class Ball {
         dstRect.set(0, 0, 100, 100);
     }
 
-    public void updateOffset(View view) {
+    public void update(View view) {
         dstRect.offset(dx, dy);
         if (dstRect.left < 0 || dstRect.right > view.getWidth())
             dx *= -1;
