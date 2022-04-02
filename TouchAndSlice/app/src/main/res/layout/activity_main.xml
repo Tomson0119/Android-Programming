@@ -7,10 +7,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <kr.ac.tukorea.gamekim2016180014.touchandslice.ScreenView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello World!"
-        android:gravity="center"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
