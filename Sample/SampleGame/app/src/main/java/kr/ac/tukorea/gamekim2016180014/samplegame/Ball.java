@@ -29,9 +29,9 @@ public class Ball implements GameObject {
 
     public void update() {
         dstRect.offset(dx, dy);
-        if (dstRect.left < 0 || dstRect.right > GameView.view.getWidth())
+        if (dstRect.left < 0 || dstRect.right > Metrics.width)
             dx *= -1;
-        if (dstRect.top < 0 || dstRect.bottom > GameView.view.getHeight())
+        if (dstRect.top < 0 || dstRect.bottom > Metrics.height)
             dy *= -1;
     }
 

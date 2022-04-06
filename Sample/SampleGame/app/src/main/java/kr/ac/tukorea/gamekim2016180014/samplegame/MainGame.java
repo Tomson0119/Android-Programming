@@ -21,6 +21,8 @@ public class MainGame {
     private ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
     private Fighter fighter;
 
+    public float frameTime;
+
     public void init() {
         Random random = new Random();
         for(int i = 0; i < MAX_BALL; i++) {
@@ -28,7 +30,11 @@ public class MainGame {
             int dy = random.nextInt(10) + 5;
             gameObjects.add(new Ball(dx,dy,SPEED));
         }
-        fighter = new Fighter();
+
+        float fx = Metrics.width / 2;
+        float fy = Metrics.height / 2;
+
+        fighter = new Fighter(fx, fy);
         gameObjects.add(fighter);
     }
 
@@ -38,13 +44,15 @@ public class MainGame {
             case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
                 float y = event.getY();
-                fighter.setPosition(x, y);
+                fighter.setTargetPosition(x, y);
                 return true;
         }
         return false;
     }
 
-    public void update() {
+    public void update(int elapsed) {
+        frameTime = (elapsed / 1_000_000_000f);
+
         for(GameObject obj : gameObjects) {
             obj.update();
         }

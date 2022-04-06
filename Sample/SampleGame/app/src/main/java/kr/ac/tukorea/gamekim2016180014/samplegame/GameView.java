@@ -23,13 +23,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static Resources res;
 
     private Paint fpsPaint;
-    private long prevTimeNs = 0;
-    private int fps = 0;
+    private long prevTimeNs;
+    private int fps;
+
+    private boolean initialized;
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initView();
-        Choreographer.getInstance().postFrameCallback(this);
     }
 
     private void initView() {
@@ -41,14 +41,33 @@ public class GameView extends View implements Choreographer.FrameCallback {
         fpsPaint = new Paint();
         fpsPaint.setColor(Color.BLUE);
         fpsPaint.setTextSize(100);
+
+        Choreographer.getInstance().postFrameCallback(this);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int old_w, int old_h) {
+        super.onSizeChanged(w, h, old_w, old_h);
+
+        Metrics.width = w;
+        Metrics.height = h;
+
+        if(initialized == false) {
+            initialized = true;
+            initView();
+        }
     }
 
     @Override
     public void doFrame(long currTimeNs) {
         int elapsed = (int)(currTimeNs - prevTimeNs);
-        fps = 1_000_000_000 / elapsed;
+        if(elapsed > 0.0f)
+            fps = 1_000_000_000 / elapsed;
         prevTimeNs = currTimeNs;
-        MainGame.GetInstance().update();
+
+        MainGame mainGame = MainGame.GetInstance();
+        mainGame.update(elapsed);
+
         invalidate();
         Choreographer.getInstance().postFrameCallback(this);
     }
