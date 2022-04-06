@@ -17,15 +17,10 @@ import java.util.Random;
 
 public class GameView extends View implements Choreographer.FrameCallback {
 
+    private static final String TAG = GameView.class.getSimpleName();
+
     public static View view;
     public static Resources res;
-
-    private static final String TAG = GameView.class.getSimpleName();
-    private static final int MAX_BALL = 10;
-    private static final int SPEED = 10;
-
-    private ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-    private Fighter fighter;
 
     private Paint fpsPaint;
     private long prevTimeNs = 0;
@@ -41,14 +36,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         view = this;
         res = getResources();
 
-        Random random = new Random();
-        for(int i = 0; i < MAX_BALL; i++) {
-            int dx = random.nextInt(10) + 5;
-            int dy = random.nextInt(10) + 5;
-            gameObjects.add(new Ball(dx,dy,SPEED));
-        }
-        fighter = new Fighter();
-        gameObjects.add(fighter);
+        MainGame.GetInstance().init();
 
         fpsPaint = new Paint();
         fpsPaint.setColor(Color.BLUE);
@@ -60,35 +48,19 @@ public class GameView extends View implements Choreographer.FrameCallback {
         int elapsed = (int)(currTimeNs - prevTimeNs);
         fps = 1_000_000_000 / elapsed;
         prevTimeNs = currTimeNs;
-        update();
+        MainGame.GetInstance().update();
         invalidate();
         Choreographer.getInstance().postFrameCallback(this);
     }
 
-    private void update() {
-        for(GameObject obj : gameObjects) {
-            obj.update();
-        }
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
-        for (GameObject obj : gameObjects) {
-            obj.draw(canvas);
-        }
+        MainGame.GetInstance().draw(canvas);
         canvas.drawText(String.valueOf(fps), 100, 200, fpsPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                float y = event.getY();
-                fighter.setPosition(x, y);
-                return true;
-        }
-        return super.onTouchEvent(event);
+        return MainGame.GetInstance().onTouchEvent(event);
     }
 }
