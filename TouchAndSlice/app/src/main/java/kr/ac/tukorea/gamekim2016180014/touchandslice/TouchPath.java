@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.RectF;
 
 import java.util.LinkedList;
 
@@ -69,5 +70,22 @@ public class TouchPath implements GameObject {
         for(int i = 1; i < points.size(); i++) {
             path.lineTo(points.get(i).x, points.get(i).y);
         }
+    }
+
+    public boolean isCollided(SliceObject obj) {
+        RectF rect = obj.getRect();
+        int count = 0;
+        for(PointF point : points) {
+            if(isInside(rect, point)) {
+                count += 1;
+                if(count == 2) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isInside(RectF rect, PointF point) {
+        return ((rect.top <= point.y && point.y <= rect.bottom)
+                && (rect.left <= point.x && point.x <= rect.right));
     }
 }
