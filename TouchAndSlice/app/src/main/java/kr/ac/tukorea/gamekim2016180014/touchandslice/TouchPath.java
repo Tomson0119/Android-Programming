@@ -6,10 +6,10 @@ import android.graphics.Path;
 import android.graphics.PointF;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
-public class TouchPath {
+public class TouchPath implements GameObject {
     private static final float STROKE_WIDTH = 5.0f;
+    private static final int MAX_POINTS = 10;
 
     private float duration;
     private float accumulation;
@@ -32,6 +32,7 @@ public class TouchPath {
         path = new Path();
     }
 
+    @Override
     public void update(float elapsed) {
         accumulation += elapsed;
         if(accumulation >= duration) {
@@ -41,13 +42,14 @@ public class TouchPath {
         }
     }
 
+    @Override
     public void draw(Canvas canvas) {
         canvas.drawPath(path, paint);
     }
 
     public void appendPoint(float x, float y) {
         points.add(new PointF(x, y));
-        if(points.size() > 10) {
+        if(points.size() > MAX_POINTS) {
             points.poll();
         }
         connectPoints();
