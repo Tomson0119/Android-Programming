@@ -10,23 +10,30 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class ScreenView extends View implements Choreographer.FrameCallback {
-
-    private static final String TAG = ScreenView.class.getSimpleName();
-
-    private TouchPath touchPath;
+    public static ScreenView view;
 
     private float elapsedSec;
     private long prevNs;
+    private boolean initialized;
 
     public ScreenView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        view = this;
+    }
 
-        touchPath = new TouchPath();
-        elapsedSec = 0;
-        prevNs = 0;
+    @Override
+    protected void onSizeChanged(int w, int h, int old_w, int old_h) {
+        super.onSizeChanged(w, h, old_w, old_h);
+        Metrics.setResolution(w, h);
 
-        Choreographer.getInstance().postFrameCallback(this);
+        if(initialized == false) {
+            initialized = true;
+            GameScene.getInstance().init();
+            Choreographer.getInstance().postFrameCallback(this);
+        }
     }
 
     @Override
@@ -39,21 +46,7 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                return true;
-
-            case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                float y = event.getY();
-                touchPath.appendPoint(x, y);
-                return true;
-
-            case MotionEvent.ACTION_UP:
-                touchPath.clearPath();
-                return true;
-        }
-        return super.onTouchEvent(event);
+        return GameScene.getInstance().onTouchEvent(event);
     }
 
     private void calculateTimeStep(long currNs) {
@@ -62,11 +55,11 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        touchPath.update(elapsedSec);
+        GameScene.getInstance().update(elapsedSec);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        touchPath.draw(canvas);
+        GameScene.getInstance().draw(canvas);
     }
 }
