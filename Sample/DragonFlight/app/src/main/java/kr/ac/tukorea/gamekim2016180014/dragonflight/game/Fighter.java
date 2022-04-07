@@ -12,58 +12,54 @@ public class Fighter extends Sprite {
     private static final String TAG = Fighter.class.getSimpleName();
     private RectF targetRect = new RectF();
 
-    private float angle;
-    private float dx, dy;
+    private float dx;
     private float tx, ty;
+    private float elapsedTimeForFire;
+    private float fireInterval;
 
     private static Bitmap targetBitmap;
 
     public Fighter(float x, float y) {
         super(x, y, R.dimen.fighter_radius, R.mipmap.plane);
         setTargetPosition(x, y);
-        angle = -(float) (Math.PI / 2);
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.save();
-        canvas.rotate((float) (angle * 180 / Math.PI) + 90, x, y);
-        canvas.drawBitmap(bitmap, null, dstRect, null);
-        canvas.restore();
+        fireInterval = Metrics.floatValue(R.dimen.fire_interval);
     }
 
     public void update() {
-        if (dx == 0 && dy == 0)
+        float frameTime = MainGame.getInstance().frameTime;
+        elapsedTimeForFire += frameTime;
+        if(elapsedTimeForFire >= fireInterval) {
+            fire();
+            elapsedTimeForFire -= fireInterval;
+        }
+
+        if (dx == 0)
             return;
 
-        if ((dx > 0 && x + dx > tx) || (dx < 0 && x + dx < tx)) {
-            dx = tx - x;
+        float d = dx * MainGame.getInstance().frameTime;
+        if ((d > 0 && x + d > tx) || (d < 0 && x + d < tx)) {
+            d = tx - x;
             x = tx;
         } else {
-            x += dx;
+            x += d;
         }
-        if ((dy > 0 && y + dy > ty) || (dy < 0 && y + dy < ty)) {
-            dy = ty - y;
-            y = ty;
-        } else {
-            y += dy;
-        }
-        dstRect.offset(dx, dy);
+        dstRect.offset(d, 0.0f);
     }
 
     public void setTargetPosition(float tx, float ty) {
         this.tx = tx;
         this.ty = ty;
-        targetRect.set(tx - radius/2, ty - radius/2,
-                tx + radius/2, ty + radius/2);
-        angle = (float) Math.atan2(ty - y, tx - x);
-        float speed = Metrics.size(R.dimen.fighter_speed);
-        float dist = speed * MainGame.getInstance().frameTime;
-        dx = (float) (dist * Math.cos(angle));
-        dy = (float) (dist * Math.sin(angle));
+        targetRect.set(tx - radius / 2, ty - radius / 2,
+                tx + radius / 2, ty + radius / 2);
+
+        dx = Metrics.size(R.dimen.fighter_speed);
+        if (tx < x) {
+            dx *= -1.0f;
+        }
     }
 
     public void fire() {
-        Bullet bullet = new Bullet(x, y, angle);
+        Bullet bullet = new Bullet(x, y, (float)-Math.PI/2);
         MainGame.getInstance().add(bullet);
     }
 }

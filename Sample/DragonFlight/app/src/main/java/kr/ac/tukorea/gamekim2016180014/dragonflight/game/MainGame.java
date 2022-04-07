@@ -5,6 +5,8 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
+import kr.ac.tukorea.gamekim2016180014.dragonflight.R;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameView;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameObject;
 
@@ -23,7 +25,7 @@ public class MainGame {
 
     public void init() {
         float fx = Metrics.width / 2;
-        float fy = Metrics.height / 2;
+        float fy = Metrics.height - Metrics.size(R.dimen.fighter_y_offset);
         fighter = new Fighter(fx, fy);
         gameObjects.add(fighter);
     }
@@ -36,9 +38,6 @@ public class MainGame {
                 float x = event.getX();
                 float y = event.getY();
                 fighter.setTargetPosition(x, y);
-                if (action == MotionEvent.ACTION_DOWN) {
-                    fighter.fire();
-                }
                 return true;
         }
         return false;
@@ -58,6 +57,20 @@ public class MainGame {
     }
 
     public void add(GameObject gameObject) {
-        gameObjects.add(gameObject);
+        GameView.view.post(new Runnable() {
+            @Override
+            public void run() {
+                gameObjects.add(gameObject);
+            }
+        });
+    }
+
+    public void remove(GameObject obj) {
+        GameView.view.post(new Runnable() {
+            @Override
+            public void run() {
+                gameObjects.remove(obj);
+            }
+        });
     }
 }
