@@ -2,6 +2,8 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
@@ -18,10 +20,14 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     private float elapsedSec;
     private long prevNs;
     private boolean initialized;
+    private Paint fpsPaint;
 
     public ScreenView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         view = this;
+        fpsPaint = new Paint();
+        fpsPaint.setColor(Color.RED);
+        fpsPaint.setTextSize(100);
     }
 
     @Override
@@ -61,5 +67,6 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         GameScene.getInstance().draw(canvas);
+        canvas.drawText(String.valueOf((int)(1/elapsedSec)), 10, 100, fpsPaint);
     }
 }
