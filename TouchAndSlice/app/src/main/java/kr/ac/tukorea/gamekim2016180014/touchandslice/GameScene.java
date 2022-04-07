@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GameScene {
     private static GameScene instance;
@@ -15,13 +16,16 @@ public class GameScene {
     }
 
     private TouchPath touchPath;
-    private ArrayList<GameObject> gameObjects;
+    private LinkedList<GameObject> gameObjects;
 
     public void init() {
-        gameObjects = new ArrayList<>();
+        gameObjects = new LinkedList<>();
+        gameObjects.add(new SliceObject(
+                Metrics.width / 2,
+                Metrics.getSize(R.dimen.image_y),
+                R.mipmap.hamburger));
         touchPath = new TouchPath();
         gameObjects.add(touchPath);
-        gameObjects.add(new SliceObject(100, 100));
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -45,6 +49,15 @@ public class GameScene {
     public void update(float elapsed) {
         for(GameObject obj : gameObjects) {
             obj.update(elapsed);
+            processCollision(obj);
+        }
+    }
+
+    private void processCollision(GameObject obj) {
+        if(touchPath == obj) return;
+
+        if(touchPath.isCollided((SliceObject)obj)) {
+            System.out.println("Hey");
         }
     }
 
