@@ -49,14 +49,12 @@ public class Fighter implements GameObject {
         } else {
             x += dx;
         }
-        // 수정
-        if(dy < 0 && (y + dy) < ty) {
+
+        if((dy < 0 && (y + dy) < ty) || (dy > 0 && (y + dy) > ty)) {
             y = ty;
             dy = 0.0f;
-        }
-        if(dy > 0 && (y + dy) > ty) {
-            y = ty;
-            dy = 0.0f;
+        } else {
+            y += dy;
         }
         dstRect.offset(dx, dy);
     }
