@@ -1,10 +1,12 @@
-package kr.ac.tukorea.gamekim2016180014.dragonflight;
+package kr.ac.tukorea.gamekim2016180014.dragonflight.framework;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.BitmapPool;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameObject;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
 
 public class Sprite implements GameObject {
     protected Bitmap bitmap;

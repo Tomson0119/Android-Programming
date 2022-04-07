@@ -1,23 +1,17 @@
-package kr.ac.tukorea.gamekim2016180014.dragonflight;
+package kr.ac.tukorea.gamekim2016180014.dragonflight.framework;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.Random;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.game.MainGame;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     public static GameView view;
@@ -33,8 +27,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
+    protected void onSizeChanged(int w, int h, int old_w, int old_h) {
+        super.onSizeChanged(w, h, old_w, old_h);
         Metrics.width = w;
         Metrics.height = h;
 
@@ -74,6 +68,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected void onDraw(Canvas canvas) {
         MainGame.getInstance().draw(canvas);
 
-        canvas.drawText("FPS:" + framesPerSecond, framesPerSecond * 10, 100, fpsPaint);
+        canvas.drawText("FPS:" + framesPerSecond, 10, 100, fpsPaint);
     }
 }

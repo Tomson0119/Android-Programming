@@ -1,8 +1,12 @@
-package kr.ac.tukorea.gamekim2016180014.dragonflight;
+package kr.ac.tukorea.gamekim2016180014.dragonflight.game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.R;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Sprite;
 
 public class Fighter extends Sprite {
     private static final String TAG = Fighter.class.getSimpleName();

@@ -1,8 +1,12 @@
-package kr.ac.tukorea.gamekim2016180014.dragonflight;
+package kr.ac.tukorea.gamekim2016180014.dragonflight.game;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameObject;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.R;
 
 public class Bullet implements GameObject {
     protected float x, y;

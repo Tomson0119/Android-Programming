@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".app.MainActivity">
 
-    <kr.ac.tukorea.gamekim2016180014.dragonflight.GameView
+    <kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

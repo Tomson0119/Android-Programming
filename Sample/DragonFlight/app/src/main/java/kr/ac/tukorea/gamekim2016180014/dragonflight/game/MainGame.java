@@ -1,10 +1,12 @@
-package kr.ac.tukorea.gamekim2016180014.dragonflight;
+package kr.ac.tukorea.gamekim2016180014.dragonflight.game;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
-import java.util.Random;
+
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameObject;
 
 public class MainGame {
     private static MainGame singleton;
