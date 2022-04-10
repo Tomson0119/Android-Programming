@@ -18,6 +18,9 @@ public class TouchPath implements GameObject {
     private Paint paint;
     private Path path;
 
+    private PointF firstPoint;
+    private PointF lastPoint;
+
     public TouchPath() {
         points = new LinkedList<>();
 
@@ -72,20 +75,29 @@ public class TouchPath implements GameObject {
         }
     }
 
-    public boolean isCollided(SliceObject obj) {
+    public boolean isCollidedWith(SliceObject obj) {
         RectF rect = obj.getRect();
+
+        firstPoint = null;
+        lastPoint = null;
+
         int count = 0;
         for(PointF point : points) {
-            if(isInside(rect, point)) {
+            if (MathHelper.isInside(rect, point)) {
+                if (firstPoint == null) {
+                    firstPoint = point;
+                }
+                lastPoint = point;
                 count += 1;
-                if(count == 2) return true;
             }
         }
-        return false;
+        return (count >= 2);
     }
 
-    private boolean isInside(RectF rect, PointF point) {
-        return ((rect.top <= point.y && point.y <= rect.bottom)
-                && (rect.left <= point.x && point.x <= rect.right));
+    public float getSlope() {
+        System.out.println("First: " + firstPoint);
+        System.out.println("Second: " + lastPoint);
+
+        return MathHelper.getSlope(firstPoint, lastPoint);
     }
 }

@@ -3,7 +3,6 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GameScene {
@@ -19,12 +18,16 @@ public class GameScene {
     private LinkedList<GameObject> gameObjects;
 
     public void init() {
-        gameObjects = new LinkedList<>();
-        gameObjects.add(new SliceObject(
+        SliceObject obj = new SliceObject(
                 Metrics.width / 2,
                 Metrics.getSize(R.dimen.image_y),
-                R.mipmap.hamburger));
+                R.mipmap.hamburger);
+        obj.setRotationSpeed(100.0f);
+
         touchPath = new TouchPath();
+
+        gameObjects = new LinkedList<>();
+        gameObjects.add(obj);
         gameObjects.add(touchPath);
     }
 
@@ -56,8 +59,9 @@ public class GameScene {
     private void processCollision(GameObject obj) {
         if(touchPath == obj) return;
 
-        if(touchPath.isCollided((SliceObject)obj)) {
-            System.out.println("Hey");
+        if(touchPath.isCollidedWith((SliceObject)obj)) {
+            float slope = touchPath.getSlope();
+            //System.out.println(slope);
         }
     }
 
