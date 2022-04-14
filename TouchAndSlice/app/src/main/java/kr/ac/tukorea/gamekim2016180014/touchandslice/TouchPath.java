@@ -95,9 +95,6 @@ public class TouchPath implements GameObject {
     }
 
     public float getSlope() {
-        System.out.println("First: " + firstPoint);
-        System.out.println("Second: " + lastPoint);
-
         return MathHelper.getSlope(firstPoint, lastPoint);
     }
 }
