@@ -11,15 +11,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class Image {
-    protected Rect border;
     protected Paint borderPaint;
     protected Bitmap bitmap;
     protected RectF dstRect;
 
     private PointF[] vertices;
     private Paint vertexPaint;
-
-    private Matrix mat;
 
     public Image(int bitmapId) {
         bitmap = BitmapPool.getBitmap(bitmapId);
@@ -36,14 +33,6 @@ public class Image {
         vertexPaint = new Paint();
         vertexPaint.setColor(Color.RED);
         vertexPaint.setStrokeWidth(10);
-
-        mat = new Matrix();
-        mat.mapRect(dstRect);
-    }
-
-    public void setRotation(float angle) {
-        mat.setRotate(angle, dstRect.centerX(), dstRect.centerY());
-        mat.mapRect(dstRect);
     }
 
     private void createBorder() {
@@ -56,10 +45,8 @@ public class Image {
     public void update(float elapsed) {
         vertices[0].set(dstRect.left, dstRect.top);
         vertices[1].set(dstRect.right, dstRect.top);
-        vertices[2].set(dstRect.left, dstRect.bottom);
-        vertices[3].set(dstRect.right, dstRect.bottom);
-
-        //System.out.println(vertices[0]);
+        vertices[2].set(dstRect.right, dstRect.bottom);
+        vertices[3].set(dstRect.left, dstRect.bottom);
     }
 
     public void draw(Canvas canvas) {
@@ -78,4 +65,6 @@ public class Image {
     public RectF getRect() {
         return dstRect;
     }
+
+    public PointF[] getVertices() { return vertices; }
 }
