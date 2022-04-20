@@ -25,6 +25,7 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     public ScreenView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         view = this;
+        view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         fpsPaint = new Paint();
         fpsPaint.setColor(Color.RED);
         fpsPaint.setTextSize(100);
