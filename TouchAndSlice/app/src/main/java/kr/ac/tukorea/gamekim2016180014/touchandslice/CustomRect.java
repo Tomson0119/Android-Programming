@@ -12,23 +12,28 @@ import android.graphics.RectF;
 public class CustomRect {
     static protected final int MAX_POINTS = 4;
     protected PointF[] points;
-    protected Path shapePath;
+    protected Path clipShapePath;
 
     protected Paint linePaint;
+    protected Paint clipPaint;
     protected Paint vertexPaint;
 
     protected RectF baseRect;
 
     public CustomRect() {
         points = new PointF[MAX_POINTS];
-        shapePath = new Path();
+        clipShapePath = new Path();
 
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
-        linePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        linePaint.setStyle(Paint.Style.STROKE);
         linePaint.setStrokeWidth(5);
-        linePaint.setColor(Color.TRANSPARENT);
-        linePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+        linePaint.setColor(Color.BLACK);
+
+        clipPaint = new Paint();
+        clipPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        clipPaint.setColor(Color.TRANSPARENT);
+        clipPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
 
         vertexPaint = new Paint();
         vertexPaint.setStrokeWidth(10);
@@ -53,16 +58,17 @@ public class CustomRect {
 
     public void draw(Canvas canvas) {
         composePath();
-        canvas.drawPath(shapePath, linePaint);
+        canvas.drawPath(clipShapePath, clipPaint);
+        //canvas.drawPath(clipShapePath, linePaint);
     }
 
     private void composePath() {
-        shapePath.reset();
-        shapePath.moveTo(points[0].x, points[1].y);
+        clipShapePath.reset();
+        clipShapePath.moveTo(points[0].x, points[1].y);
         for(int i=0;i<points.length;i++) {
-            shapePath.lineTo(points[i].x, points[i].y);
+            clipShapePath.lineTo(points[i].x, points[i].y);
         }
-        shapePath.lineTo(points[0].x, points[0].y);
+        clipShapePath.lineTo(points[0].x, points[0].y);
     }
 
     public void move(float dx, float dy) {
@@ -88,6 +94,4 @@ public class CustomRect {
     public float getRectHeight() {
         return baseRect.height();
     }
-
-
 }
