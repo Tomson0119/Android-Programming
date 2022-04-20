@@ -2,8 +2,11 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 public class MathHelper {
+    private static String TAG = MathHelper.class.getSimpleName();
+
     public static float getSlope(PointF first, PointF last) {
         assert(first != last);
         if(first.x < last.x) {
@@ -13,10 +16,6 @@ public class MathHelper {
         } else {
             return Float.MAX_VALUE;
         }
-    }
-
-    public static PointF getIntersection(PointF p11, PointF p12, PointF p21, PointF p22) {
-        return null;
     }
 
     public static boolean isInside(RectF rect, PointF point) {
