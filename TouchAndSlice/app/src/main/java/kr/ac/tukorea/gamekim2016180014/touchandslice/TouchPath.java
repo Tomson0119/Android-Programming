@@ -76,11 +76,11 @@ public class TouchPath implements GameObject {
     }
 
     public boolean isCollidedWith(SliceObject obj) {
-        RectF rect = obj.getRect();
+        if(obj.isSliced()) return false;
 
+        RectF rect = obj.getRect();
         firstPoint = null;
         lastPoint = null;
-
         int count = 0;
         for(PointF point : points) {
             if (MathHelper.isInside(rect, point)) {
