@@ -46,8 +46,8 @@ public class SliceObject implements GameObject {
     @Override
     public void update(float elapsed) {
         if(isSliced) {
-            childImage1.move(+elapsed * 10.0f, 0.0f);
-            childImage2.move(-elapsed * 10.0f, 0.0f);
+            childImage1.move(-elapsed * 10.0f, 0.0f);
+            childImage2.move(+elapsed * 10.0f, 0.0f);
         }
     }
 
@@ -94,29 +94,33 @@ public class SliceObject implements GameObject {
     private void divideHorizontal() {
         RectF origin = baseImage.getRect();
 
-        childImage1.setPoint(0, new PointF(origin.left, origin.top));
-        childImage1.setPoint(1, new PointF(origin.right, origin.top));
-        childImage1.setPoint(2, Helper.deepCopyPointF(slicePoints[1]));
-        childImage1.setPoint(3, Helper.deepCopyPointF(slicePoints[0]));
+        childImage1.setPoint(0, Helper.deepCopyPointF(slicePoints[0]));
+        childImage1.setPoint(1, Helper.deepCopyPointF(slicePoints[1]));
+        childImage1.setPoint(2, new PointF(origin.right, origin.bottom));
+        childImage1.setPoint(3, new PointF(origin.left, origin.bottom));
+        childImage1.move(0, -baseImage.getRectHeight() / 2);
 
-        childImage2.setPoint(0, Helper.deepCopyPointF(slicePoints[0]));
-        childImage2.setPoint(1, Helper.deepCopyPointF(slicePoints[1]));
-        childImage2.setPoint(2, new PointF(origin.right, origin.bottom));
-        childImage2.setPoint(3, new PointF(origin.left, origin.bottom));
+        childImage2.setPoint(0, new PointF(origin.left, origin.top));
+        childImage2.setPoint(1, new PointF(origin.right, origin.top));
+        childImage2.setPoint(2, Helper.deepCopyPointF(slicePoints[1]));
+        childImage2.setPoint(3, Helper.deepCopyPointF(slicePoints[0]));
+        childImage2.move(0, baseImage.getRectHeight() / 2);
     }
 
     private void divideVertical() {
         RectF origin = baseImage.getRect();
 
-        childImage1.setPoint(0, new PointF(origin.left, origin.top));
-        childImage1.setPoint(1, Helper.deepCopyPointF(slicePoints[0]));
-        childImage1.setPoint(2, Helper.deepCopyPointF(slicePoints[1]));
-        childImage1.setPoint(3, new PointF(origin.left, origin.bottom));
+        childImage1.setPoint(0, Helper.deepCopyPointF(slicePoints[0]));
+        childImage1.setPoint(1, new PointF(origin.right, origin.top));
+        childImage1.setPoint(2, new PointF(origin.right, origin.bottom));
+        childImage1.setPoint(3, Helper.deepCopyPointF(slicePoints[1]));
+        childImage1.move(-baseImage.getRectWidth()/2, 0);
 
-        childImage2.setPoint(0, Helper.deepCopyPointF(slicePoints[0]));
-        childImage2.setPoint(1, new PointF(origin.right, origin.top));
-        childImage2.setPoint(2, new PointF(origin.right, origin.bottom));
-        childImage2.setPoint(3, Helper.deepCopyPointF(slicePoints[1]));
+        childImage2.setPoint(0, new PointF(origin.left, origin.top));
+        childImage2.setPoint(1, Helper.deepCopyPointF(slicePoints[0]));
+        childImage2.setPoint(2, Helper.deepCopyPointF(slicePoints[1]));
+        childImage2.setPoint(3, new PointF(origin.left, origin.bottom));
+        childImage2.move(baseImage.getRectWidth()/2, 0);
     }
 
     public boolean isSliced() {
