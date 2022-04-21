@@ -8,6 +8,9 @@ import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 public class CustomRect {
     static protected final int MAX_POINTS = 4;
@@ -58,8 +61,9 @@ public class CustomRect {
 
     public void draw(Canvas canvas) {
         composePath();
-        canvas.drawPath(clipShapePath, clipPaint);
-        //canvas.drawPath(clipShapePath, linePaint);
+        canvas.clipPath(clipShapePath);
+        //canvas.drawPath(clipShapePath, clipPaint);
+        canvas.drawPath(clipShapePath, linePaint);
     }
 
     private void composePath() {

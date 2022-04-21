@@ -34,8 +34,10 @@ public class Image extends CustomRect {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, null, getRect(), null);
+        canvas.save();
         super.draw(canvas);
+        canvas.drawBitmap(bitmap, null, getRect(), null);
+        canvas.restore();
     }
 
     public void drawRect(Canvas canvas) {
