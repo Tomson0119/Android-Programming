@@ -1,4 +1,4 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Canvas;
 

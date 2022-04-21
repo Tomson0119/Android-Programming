@@ -1,7 +1,9 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.Common;
 
 import android.content.res.Resources;
 import android.util.TypedValue;
+
+import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.ScreenView;
 
 public class Metrics {
     public static int width;

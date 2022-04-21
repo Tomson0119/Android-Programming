@@ -1,8 +1,7 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.Common;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 public class MathHelper {
     private static String TAG = MathHelper.class.getSimpleName();

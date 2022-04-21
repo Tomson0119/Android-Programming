@@ -1,4 +1,4 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,6 +7,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import java.util.LinkedList;
+
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.MathHelper;
 
 public class TouchPath implements GameObject {
     private static final float STROKE_WIDTH = 5.0f;

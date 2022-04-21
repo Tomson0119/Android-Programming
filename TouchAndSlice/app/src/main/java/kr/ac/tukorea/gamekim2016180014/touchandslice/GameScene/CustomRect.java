@@ -1,4 +1,4 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -78,10 +78,8 @@ public class CustomRect {
     public void move(float dx, float dy) {
         int i=0;
         for(PointF point : points) {
-            System.out.println(i + " " + point);
             point.x += dx;
             point.y += dy;
-            System.out.println(point);
             i+=1;
         }
         baseRect.offset(dx, dy);

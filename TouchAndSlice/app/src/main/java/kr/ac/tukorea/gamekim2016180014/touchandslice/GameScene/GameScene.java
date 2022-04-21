@@ -1,11 +1,12 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
-import android.app.slice.Slice;
 import android.graphics.Canvas;
-import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import java.util.LinkedList;
+
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameScene {
     private static GameScene instance;

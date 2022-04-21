@@ -1,12 +1,12 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.BitmapPool;
 
 public class Image extends CustomRect {
     protected Bitmap bitmap;
@@ -34,10 +34,10 @@ public class Image extends CustomRect {
     }
 
     public void draw(Canvas canvas) {
-        canvas.save();
+        //canvas.save();
         super.draw(canvas);
         canvas.drawBitmap(bitmap, null, getRect(), null);
-        canvas.restore();
+        //canvas.restore();
     }
 
     public void drawRect(Canvas canvas) {

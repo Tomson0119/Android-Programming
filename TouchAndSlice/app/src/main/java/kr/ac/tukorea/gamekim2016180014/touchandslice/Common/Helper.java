@@ -1,9 +1,9 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.Common;
 
 import android.graphics.PointF;
 
 public class Helper {
-    static PointF deepCopyPointF(PointF obj) {
+    public static PointF deepCopyPointF(PointF obj) {
         PointF newObj = new PointF();
         newObj.set(obj.x, obj.y);
         return newObj;

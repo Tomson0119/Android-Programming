@@ -1,13 +1,14 @@
-package kr.ac.tukorea.gamekim2016180014.touchandslice;
+package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
-import android.app.slice.Slice;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
+
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class SliceObject implements GameObject {
     private final Image baseImage;
