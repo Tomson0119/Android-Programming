@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TouchAndSlice">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".Main.MainActivity"
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
