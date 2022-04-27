@@ -1,13 +1,20 @@
 package kr.ac.tukorea.gamekim2016180014.dragonflight.game;
 
 import android.graphics.RectF;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 import kr.ac.tukorea.gamekim2016180014.dragonflight.R;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.AnimSprite;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.BitmapPool;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.BoxCollidable;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Recyclable;
+import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.RecycleBin;
 
-public class Enemy extends AnimSprite implements BoxCollidable {
+public class Enemy extends AnimSprite implements BoxCollidable, Recyclable {
+    private static final String TAG = Enemy.class.getSimpleName();
     protected static int[] bitmapIds = {
             R.mipmap.enemy_01, R.mipmap.enemy_02,
             R.mipmap.enemy_03, R.mipmap.enemy_04,
@@ -25,14 +32,32 @@ public class Enemy extends AnimSprite implements BoxCollidable {
     public static float size;
     private static float FRAME_PER_SECOND = 10.0f;
 
-    protected final int level;
+    protected int level;
     protected float dy;
     protected RectF boundingBox = new RectF();
 
-    public Enemy(int level, float x, float speed) {
+    public static Enemy get(int level, float x, float speed) {
+        Enemy enemy = (Enemy)RecycleBin.get(Enemy.class);
+        if(enemy != null) {
+            enemy.set(level, x, speed);
+            return enemy;
+        }
+        return new Enemy(level, x, speed);
+    }
+
+    private void set(int level, float x, float speed) {
+        bitmap = BitmapPool.get(bitmapIds[level-1]);
+        this.x = x;
+        this.y = -size;
+        this.dy = speed;
+        this.level = level;
+    }
+
+    private Enemy(int level, float x, float speed) {
         super(x, -size, R.dimen.enemy_radius, bitmapIds[level-1], FRAME_PER_SECOND, 8);
         this.level = level;
         dy = speed;
+        Log.d(TAG, "Enemy created");
     }
 
     @Override
@@ -51,5 +76,14 @@ public class Enemy extends AnimSprite implements BoxCollidable {
         boundingBox.set(dstRect);
         boundingBox.inset(size/10, size/10);
         return boundingBox;
+    }
+
+    @Override
+    public void finish() {
+
+    }
+
+    public int getScore() {
+        return level*10;
     }
 }
