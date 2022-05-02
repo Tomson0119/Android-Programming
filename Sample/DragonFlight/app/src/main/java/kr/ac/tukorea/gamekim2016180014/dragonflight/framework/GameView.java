@@ -85,8 +85,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     public void resumeGame() {
-        running = true;
-        Choreographer.getInstance().postFrameCallback(this);
-        Log.d(TAG, "Resume");
+        if(initialized && running == false) {
+            running = true;
+            Choreographer.getInstance().postFrameCallback(this);
+            Log.d(TAG, "Resume");
+        }
     }
 }

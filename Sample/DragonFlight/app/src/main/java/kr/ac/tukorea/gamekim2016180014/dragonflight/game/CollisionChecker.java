@@ -20,7 +20,7 @@ public class CollisionChecker implements GameObject {
             }
             Enemy enemy = (Enemy)obj;
 
-            boolean removed = false;
+            boolean collided = false;
             for(GameObject otherObj : bullets) {
                 if((otherObj instanceof Bullet) == false) {
                     continue;
@@ -28,13 +28,16 @@ public class CollisionChecker implements GameObject {
                 Bullet bullet = (Bullet)otherObj;
                 if(CollisionHelper.collides(enemy, bullet)) {
                     mainGame.remove(bullet);
-                    mainGame.remove(enemy);
-                    mainGame.score.add(enemy.getScore());
-                    removed = true;
+                    boolean dead = enemy.decreaseLife(bullet.getPower());
+                    if(dead) {
+                        mainGame.remove(enemy);
+                        mainGame.score.add(enemy.getScore());
+                    }
+                    collided = true;
                     return;
                 }
             }
-            if(removed) {
+            if(collided) {
                 continue;
             }
         }

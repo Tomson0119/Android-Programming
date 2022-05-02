@@ -59,7 +59,12 @@ public class Fighter extends Sprite {
     }
 
     public void fire() {
-        Bullet bullet = Bullet.get(x, y);
+        int score = MainGame.getInstance().score.getScore();
+        if (score > 100000) score = 100000;
+
+        float power = 10 + score / 1000.0f;
+
+        Bullet bullet = Bullet.get(x, y, power);
         MainGame.getInstance().add(MainGame.Layer.bullet, bullet);
     }
 }

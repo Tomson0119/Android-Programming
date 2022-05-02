@@ -55,4 +55,8 @@ public class Score implements GameObject {
             value /= 10;
         }
     }
+
+    public int getScore() {
+        return score;
+    }
 }

@@ -3,15 +3,12 @@ package kr.ac.tukorea.gamekim2016180014.dragonflight.game;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
 import kr.ac.tukorea.gamekim2016180014.dragonflight.R;
-import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.BoxCollidable;
-import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.CollisionHelper;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameView;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Metrics;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.GameObject;
@@ -19,6 +16,7 @@ import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.Recyclable;
 import kr.ac.tukorea.gamekim2016180014.dragonflight.framework.RecycleBin;
 
 public class MainGame {
+    private static final String TAG = MainGame.class.getSimpleName();
     private static MainGame singleton;
     private Paint collidablePaint;
     Score score;
@@ -33,7 +31,7 @@ public class MainGame {
 
     private ArrayList<ArrayList<GameObject>> layers;
     public enum Layer {
-        bullet, enemy, player, ui, controller, COUNT
+        bg1, bullet, enemy, player, bg2, ui, controller, COUNT
     }
     private Fighter fighter;
     public float frameTime;
@@ -43,6 +41,7 @@ public class MainGame {
     }
 
     public void init() {
+        Log.d(TAG, "Init");
         initLayers(Layer.COUNT.ordinal());
 
         add(Layer.controller, new EnemyGenerator());
@@ -55,6 +54,9 @@ public class MainGame {
 
         score = new Score();
         add(Layer.ui, score);
+
+        add(Layer.bg1, new VertScrollBackground(R.mipmap.bg_city, Metrics.size(R.dimen.bg_speed)));
+        add(Layer.bg2, new VertScrollBackground(R.mipmap.clouds, Metrics.size(R.dimen.clouds_speed)));
 
         collidablePaint = new Paint();
         collidablePaint.setStyle(Paint.Style.STROKE);
