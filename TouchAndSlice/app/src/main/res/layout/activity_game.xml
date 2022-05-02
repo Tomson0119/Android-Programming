@@ -16,8 +16,8 @@
         android:id="@+id/timeTextId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:text="00:00"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/time_text_size"
         android:paddingHorizontal="@dimen/time_text_padding_horizontal"/>
