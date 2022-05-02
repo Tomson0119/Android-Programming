@@ -22,9 +22,10 @@ public class GameScene {
 
     public void init() {
         SliceObject obj = new SliceObject(
-                Metrics.width / 2,
-                Metrics.getSize(R.dimen.image_y),
+                150.0f,
+                Metrics.height,
                 R.mipmap.hamburger);
+        obj.setInitialVel(10.0f, -50.0f);
 
         touchPath = new TouchPath();
 
