@@ -29,19 +29,10 @@ public class ObjectGenerator implements GameObject {
 
     @Override
     public void update(float elapsed) {
-        // Random --> start x, initial vx, generate interval.
         setRandomInterval();
         dt += elapsed;
         if(dt >= interval) {
-
-            SliceObject obj = (SliceObject)ObjectPool.getInstance().get(SliceObject.class);
-            if(obj == null) {
-                obj = new SliceObject();
-            }
-            obj.init(0, Metrics.height, R.mipmap.hamburger);
-            obj.setInitialVel(10.0f, 50.0f);
-            ObjectPool.getInstance().add(obj);
-            GameScene.getInstance().addObject(obj);
+            generateObject();
             dt = 0.0f;
             interval = 0.0f;
         }
@@ -52,6 +43,26 @@ public class ObjectGenerator implements GameObject {
             interval = min_interval + random.nextFloat() * (max_interval - min_interval);
             //Log.d(TAG, "Next interval: " + interval);
         }
+    }
+
+    private void generateObject() {
+        SliceObject obj = (SliceObject)ObjectPool.getInstance().get(SliceObject.class);
+        if(obj == null) {
+            obj = new SliceObject();
+            ObjectPool.getInstance().add(obj);
+        }
+
+        float pos_x = random.nextFloat() * Metrics.width;
+        obj.init(pos_x, Metrics.height, R.mipmap.hamburger);
+
+        float min_vx = Metrics.floatValue(R.dimen.min_vx);
+        float max_vx = Metrics.floatValue(R.dimen.max_vx);
+        float vx = random.nextFloat() * (max_vx - min_vx) + min_vx;
+        if(pos_x > Metrics.width / 2) {
+            vx *= -1.0f;
+        }
+        obj.setInitialVel(vx, Metrics.floatValue(R.dimen.vy));
+        GameScene.getInstance().addObject(obj);
     }
 
     @Override

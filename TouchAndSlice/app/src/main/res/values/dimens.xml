@@ -6,6 +6,9 @@
     <dimen name="image_height">100dp</dimen>
     <dimen name="image_y">100dp</dimen>
     <dimen name="gravity">50.0</dimen>
-    <dimen name="min_generate_interval">0.2</dimen>
-    <dimen name="max_generate_interval">1.0</dimen>
+    <dimen name="min_generate_interval">0.8</dimen>
+    <dimen name="max_generate_interval">1.5</dimen>
+    <dimen name="min_vx">11.0</dimen>
+    <dimen name="max_vx">23.0</dimen>
+    <dimen name="vy">40.0</dimen>
 </resources>
