@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@mipmap/background"
     tools:context=".Main.MainActivity">
 
     <kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.ScreenView
