@@ -2,7 +2,10 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.app.slice.Slice;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
+import android.media.SoundPool;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -10,12 +13,14 @@ import androidx.annotation.NonNull;
 
 import java.util.LinkedList;
 
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameScene {
     private static final String TAG = GameScene.class.getSimpleName();
     private static GameScene instance;
+
     public static GameScene getInstance() {
         if(instance == null) {
             instance = new GameScene();
@@ -93,6 +98,7 @@ public class GameScene {
 
         SliceObject sliceObj = (SliceObject)obj;
         if(touchPath.isCollidedWith(sliceObj)) {
+            AudioPlayer.getInstance().playAudio("ObjSlice");
             float slope = touchPath.getSlope();
             sliceObj.slice(slope);
         }
