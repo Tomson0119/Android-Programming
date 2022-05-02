@@ -4,15 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.GameScene;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.ScreenView;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
-public class MainActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
     }
 
     @Override

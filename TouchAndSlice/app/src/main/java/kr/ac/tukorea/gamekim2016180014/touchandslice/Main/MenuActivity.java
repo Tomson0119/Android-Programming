@@ -1,0 +1,30 @@
+package kr.ac.tukorea.gamekim2016180014.touchandslice.Main;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
+
+public class MenuActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu);
+    }
+
+    public void onGameStartBtn(View view) {
+        Button btn = (Button)view;
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    public void onExitBtn(View view) {
+        Button btn = (Button)view;
+        System.out.println("Exit button has clicked");
+    }
+}
