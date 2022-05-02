@@ -1,7 +1,12 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
+import android.app.slice.Slice;
 import android.graphics.Canvas;
+import android.graphics.PointF;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
 
 import java.util.LinkedList;
 
@@ -9,6 +14,7 @@ import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameScene {
+    private static final String TAG = GameScene.class.getSimpleName();
     private static GameScene instance;
     public static GameScene getInstance() {
         if(instance == null) {
@@ -21,17 +27,10 @@ public class GameScene {
     private LinkedList<GameObject> gameObjects;
 
     public void init() {
-        SliceObject obj = new SliceObject(
-                150.0f,
-                Metrics.height,
-                R.mipmap.hamburger);
-        obj.setInitialVel(10.0f, -50.0f);
-
-        touchPath = new TouchPath();
-
         gameObjects = new LinkedList<>();
-        gameObjects.add(obj);
+        touchPath = new TouchPath();
         gameObjects.add(touchPath);
+        gameObjects.add(new ObjectGenerator());
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -55,12 +54,43 @@ public class GameScene {
     public void update(float elapsed) {
         for(GameObject obj : gameObjects) {
             obj.update(elapsed);
+            isOutOfScreen(obj);
             processCollision(obj);
         }
     }
 
+    private void isOutOfScreen(GameObject obj) {
+        if(obj instanceof SliceObject) {
+            SliceObject sliceObj = (SliceObject)obj;
+            PointF p = sliceObj.getCenter();
+            if(p.y >= sliceObj.getRect().height() / 2 + Metrics.height) {
+                RemoveObject(obj);
+            }
+        }
+    }
+
+    public void addObject(@NonNull GameObject obj) {
+        ScreenView.view.post(new Runnable() {
+            @Override
+            public void run() {
+                gameObjects.add(obj);
+            }
+        });
+    }
+
+    private void RemoveObject(@NonNull GameObject obj) {
+        ScreenView.view.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "Object removed");
+                ObjectPool.getInstance().retrieve(obj);
+                gameObjects.remove(obj);
+            }
+        });
+    }
+
     private void processCollision(GameObject obj) {
-        if(touchPath == obj) return;
+        if(!(obj instanceof SliceObject)) return;
 
         SliceObject sliceObj = (SliceObject)obj;
         if(touchPath.isCollidedWith(sliceObj)) {
