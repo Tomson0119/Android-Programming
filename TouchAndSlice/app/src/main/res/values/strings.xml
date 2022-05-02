@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TouchAndSlice</string>
+    <string name="title">Touch And Slice</string>
+    <string name="game_start">Game Start</string>
+    <string name="exit">Exit</string>
 </resources>
