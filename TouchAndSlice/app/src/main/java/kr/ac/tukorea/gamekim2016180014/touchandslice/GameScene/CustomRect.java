@@ -22,6 +22,10 @@ public class CustomRect {
 
     public CustomRect() {
         points = new PointF[MAX_POINTS];
+        for(int i=0;i<MAX_POINTS;i++) {
+            points[i] = new PointF();
+        }
+
         clipShapePath = new Path();
 
         linePaint = new Paint();
@@ -36,10 +40,10 @@ public class CustomRect {
     public void initAsRect(float width, float height) {
         float hw = width/2;
         float hh = height/2;
-        setPoint(0, new PointF(-hw, -hh));
-        setPoint(1, new PointF(+hw, -hh));
-        setPoint(2, new PointF(+hw, +hh));
-        setPoint(3, new PointF(-hw, +hh));
+        points[0].set(-hw, -hh);
+        points[1].set(+hw, -hh);
+        points[2].set(+hw, +hh);
+        points[3].set(-hw, +hh);
         baseRect.set(-hw, -hh, +hw, +hh);
     }
 
@@ -63,11 +67,9 @@ public class CustomRect {
     }
 
     public void move(float dx, float dy) {
-        int i=0;
         for(PointF point : points) {
             point.x += dx;
             point.y += dy;
-            i+=1;
         }
         baseRect.offset(dx, dy);
     }

@@ -12,23 +12,27 @@ public class Image extends CustomRect {
     protected Bitmap bitmap;
     private Paint rectPaint;
 
-    public Image(int bitmapId) {
+    public Image() {
         super();
-        init(bitmapId, 0, 0);
+        initPaint();
     }
 
     public Image(int bitmapId, float width, float height) {
         super();
+        initPaint();
         init(bitmapId, width, height);
     }
 
-    private void init(int bitmapId, float width, float height) {
+    public void init(int bitmapId, float width, float height) {
         bitmap = BitmapPool.getBitmap(bitmapId);
+        initAsRect(width, height);
+    }
+
+    private void initPaint() {
         rectPaint = new Paint();
         rectPaint.setColor(Color.BLACK);
         rectPaint.setStyle(Paint.Style.STROKE);
         rectPaint.setStrokeWidth(5);
-        initAsRect(width, height);
     }
 
     public void draw(Canvas canvas) {
@@ -42,4 +46,6 @@ public class Image extends CustomRect {
         canvas.drawRect(getRect(), rectPaint);
         canvas.drawBitmap(bitmap, null, getRect(), null);
     }
+
+
 }

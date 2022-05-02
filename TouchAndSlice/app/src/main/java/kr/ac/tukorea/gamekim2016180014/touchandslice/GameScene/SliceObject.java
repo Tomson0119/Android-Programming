@@ -1,5 +1,6 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
+import android.app.slice.Slice;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,22 +25,27 @@ public class SliceObject implements GameObject {
     private float dt;
     private double theta;
 
-    public SliceObject(float x, float y, int imageId) {
-        float width = Metrics.getSize(R.dimen.image_width);
-        float height = Metrics.getSize(R.dimen.image_height);
-
+    public SliceObject() {
         images = new Image[3];
         for(int i=0;i<3;i++) {
-            images[i] = new Image(imageId, width, height);
+            images[i] = new Image();
+        }
+        center = new PointF();
+        slicePoints = new PointF[2];
+        for(int i=0;i<2;i++) {
+            slicePoints[i] = new PointF();
+        }
+        Log.d(TAG, "slice object created!");
+    }
+
+    public void init(float x, float y, int imageId) {
+        float width = Metrics.getSize(R.dimen.image_width);
+        float height = Metrics.getSize(R.dimen.image_height);
+        for(int i=0;i<3;i++) {
+            images[i].init(imageId, width, height);
             images[i].move(x, y);
         }
-
-        center = new PointF(x, y);
-
-        slicePoints = new PointF[2];
-        slicePoints[0] = new PointF();
-        slicePoints[1] = new PointF();
-
+        center.set(x, y);
         isSliced = false;
     }
 
@@ -61,7 +67,6 @@ public class SliceObject implements GameObject {
             float dy = -vy0 * (float)Math.sin(theta) + Metrics.floatValue(R.dimen.gravity) * dt;
             dt += elapsed;
 
-            Log.d(TAG, "dx: "+ dx + ", " + "dy: " + dy);
             for(Image img : images) {
                 img.move(dx, dy);
             }
@@ -140,4 +145,5 @@ public class SliceObject implements GameObject {
     public boolean isSliced() {
         return isSliced;
     }
+    public PointF getCenter() { return center; }
 }
