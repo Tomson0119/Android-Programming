@@ -17,10 +17,7 @@ public class CustomRect {
     protected PointF[] points;
     protected Path clipShapePath;
 
-    protected Paint linePaint;
-    protected Paint clipPaint;
-    protected Paint vertexPaint;
-
+    protected Paint linePaint; // DEBUG
     protected RectF baseRect;
 
     public CustomRect() {
@@ -32,15 +29,6 @@ public class CustomRect {
         linePaint.setStyle(Paint.Style.STROKE);
         linePaint.setStrokeWidth(5);
         linePaint.setColor(Color.BLACK);
-
-        clipPaint = new Paint();
-        clipPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        clipPaint.setColor(Color.TRANSPARENT);
-        clipPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
-
-        vertexPaint = new Paint();
-        vertexPaint.setStrokeWidth(10);
-        vertexPaint.setColor(Color.RED);
 
         baseRect = new RectF();
     }
@@ -62,7 +50,6 @@ public class CustomRect {
     public void draw(Canvas canvas) {
         composePath();
         canvas.clipPath(clipShapePath);
-        //canvas.drawPath(clipShapePath, clipPaint);
         canvas.drawPath(clipShapePath, linePaint);
     }
 
