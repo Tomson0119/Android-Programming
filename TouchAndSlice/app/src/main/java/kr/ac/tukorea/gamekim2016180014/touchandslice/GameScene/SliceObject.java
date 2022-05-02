@@ -35,7 +35,6 @@ public class SliceObject implements GameObject {
         for(int i=0;i<2;i++) {
             slicePoints[i] = new PointF();
         }
-        Log.d(TAG, "slice object created!");
     }
 
     public void init(float x, float y, int imageId) {
@@ -58,25 +57,25 @@ public class SliceObject implements GameObject {
 
     @Override
     public void update(float elapsed) {
-        if(isSliced) {
-            images[1].move(+elapsed * 10.0f, 0.0f);
-            images[2].move(-elapsed * 10.0f, 0.0f);
-        }
-        else {
-            float dx = vx0 * (float)Math.cos(theta);
-            float dy = -vy0 * (float)Math.sin(theta) + Metrics.floatValue(R.dimen.gravity) * dt;
-            dt += elapsed;
+        float dx = vx0 * (float)Math.cos(theta);
+        float dy = -vy0 * (float)Math.sin(theta) + Metrics.floatValue(R.dimen.gravity) * dt;
+        dt += elapsed;
 
-            for(Image img : images) {
-                img.move(dx, dy);
-            }
-            center.offset(dx, dy);
+        if(vx0 < 0.0f) {
+            dx *= -1.0f;
         }
+        for(int i=0;i<images.length;i++) {
+            if(isSliced && i == 1)
+                images[i].move(dx * 0.5f, dy);
+            else
+                images[i].move(dx, dy);
+        }
+        center.offset(dx, dy);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        if(isSliced == false) {
+        if(!isSliced) {
             images[0].draw(canvas);
         } else {
             images[1].draw(canvas);
