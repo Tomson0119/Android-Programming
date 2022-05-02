@@ -1,8 +1,8 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
-import android.app.slice.Slice;
 import android.graphics.Canvas;
-import android.util.Log;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.Random;
 
@@ -19,12 +19,18 @@ public class ObjectGenerator implements GameObject {
     private float interval;
     private float dt;
 
+    private Paint debugPaint;
+
     ObjectGenerator() {
         random = new Random();
         min_interval = Metrics.floatValue(R.dimen.min_generate_interval);
         max_interval = Metrics.floatValue(R.dimen.max_generate_interval);
         //Log.d(TAG, "min: " + min_interval);
         //Log.d(TAG, "max: " + max_interval);
+        debugPaint = new Paint();
+        debugPaint.setColor(Color.RED);
+        debugPaint.setTextSize(50.0f);
+        debugPaint.setStrokeWidth(10);
     }
 
     @Override
@@ -67,6 +73,7 @@ public class ObjectGenerator implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-
+        int cnt = ObjectPool.getInstance().getCount(SliceObject.class);
+        canvas.drawText("Slice object pool count: " + cnt, 10, 600, debugPaint);
     }
 }

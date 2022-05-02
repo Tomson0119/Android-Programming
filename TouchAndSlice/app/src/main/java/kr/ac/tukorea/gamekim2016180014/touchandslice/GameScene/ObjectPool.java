@@ -62,4 +62,15 @@ public class ObjectPool {
         }
         return -1;
     }
+
+    public int getCount(Class clazz) {
+        if(pool.containsKey(clazz)) {
+            ArrayList<GameObject> list = pool.get(clazz);
+            if(list == null) {
+                return 0;
+            }
+            return list.size();
+        }
+        return 0;
+    }
 }
