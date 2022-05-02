@@ -82,7 +82,6 @@ public class GameScene {
         ScreenView.view.post(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Object removed");
                 ObjectPool.getInstance().retrieve(obj);
                 gameObjects.remove(obj);
             }
