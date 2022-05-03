@@ -26,12 +26,12 @@ UI : 현재 스코어, 최대 스코어, 시간, 결과화면, 메뉴화면에�
 ```
 
 ## 개발 일정
-![schedule](../image/schedule.png)
+![schedule](../../image/schedule.png)
 
 ## 게임 흐름
 **1. 메뉴 화면**
 
-![menu](../image/menu.png)
+![menu](../../image/menu.png)
 > 메뉴 화면은 간단한 텍스트와 배경 이미지로만 이루어져 있으므로, menu_activity을 로드하는 것으로 한다.
 
 **2. 게임 화면**
