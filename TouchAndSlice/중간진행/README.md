@@ -36,3 +36,17 @@ Touch and Slice는 'Fruit Ninja'를 모작하는 게임입니다.
 ## 인 게임 핵심요소
 #### 게임 오브젝트 다이어그램
 ![gameSceneObjects](../../image/GameSceneObjects.png)
+
+#### TouchPath class
+![touchPath](../../image/touchPathClass.png)
+
+#### SliceObject class
+![sliceObject](../../image/sliceObjectClass.png)
+
+#### CustomRect class
+![customRect](../../image/customRectClass.png)
+
+#### ObjectGenerator class
+![objectGenerator](../../image/objectGeneratorClass.png)
+
+
