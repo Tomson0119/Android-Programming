@@ -67,9 +67,7 @@ public class TouchPath implements GameObject {
     }
 
     private void connectPoints() {
-        if(points.isEmpty())
-            return;
-
+        if(points.isEmpty()) return;
         path.reset();
         path.moveTo(points.get(0).x, points.get(0).y);
         for(int i = 1; i < points.size(); i++) {

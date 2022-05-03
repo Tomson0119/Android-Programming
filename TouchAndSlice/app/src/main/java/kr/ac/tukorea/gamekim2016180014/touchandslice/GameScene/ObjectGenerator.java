@@ -47,7 +47,6 @@ public class ObjectGenerator implements GameObject {
     private void setRandomInterval() {
         if(interval == 0.0f) {
             interval = min_interval + random.nextFloat() * (max_interval - min_interval);
-            //Log.d(TAG, "Next interval: " + interval);
         }
     }
 
