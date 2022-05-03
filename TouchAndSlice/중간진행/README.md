@@ -9,4 +9,9 @@ Touch and Slice는 'Fruit Ninja'를 모작하는 게임입니다.
 ```
 ![fruit ninja](https://www.windowscentral.com/sites/wpcentral.com/files/styles/large/public/postimages/5516/FruitNinja.jpg)
 
+
 ## 진행상황
+#### 개발 요소별 진행률
+![progress1](../../image/Progress1.png)
+#### 계획 대비 진행률
+![progress2](../../image/Progress2.png)
