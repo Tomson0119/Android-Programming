@@ -1,12 +1,7 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
-import android.app.slice.Slice;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
-import android.media.SoundPool;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
@@ -15,7 +10,7 @@ import java.util.LinkedList;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
-import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.ObjectPool;
 
 public class GameScene {
     private static final String TAG = GameScene.class.getSimpleName();
