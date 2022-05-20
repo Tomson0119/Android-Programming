@@ -1,24 +1,33 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 import java.util.LinkedList;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.MathHelper;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.ObjectPool;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class TouchPath implements GameObject {
+    private static final String TAG = TouchPath.class.getSimpleName();
+
     private static final float STROKE_WIDTH = 5.0f;
+    private static final float DURATION = 0.05f;
     private static final int MAX_POINTS = 10;
 
-    private float duration;
+    private final Paint paint;
+    private final float min_distance;
+
     private float accumulation;
-    private LinkedList<PointF> points;
-    private Paint paint;
+    private LinkedList<CustomPointF> points;
     private Path path;
 
     private PointF firstPoint;
@@ -28,7 +37,6 @@ public class TouchPath implements GameObject {
         points = new LinkedList<>();
 
         accumulation = 0.0f;
-        duration = 0.05f;
 
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -36,14 +44,16 @@ public class TouchPath implements GameObject {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(STROKE_WIDTH);
 
+        min_distance = Metrics.getSize(R.dimen.image_width);
+
         path = new Path();
     }
 
     @Override
     public void update(float elapsed) {
         accumulation += elapsed;
-        if(accumulation >= duration) {
-            points.poll();
+        if(accumulation >= DURATION) {
+            removePoint();
             connectPoints();
             accumulation = 0.0f;
         }
@@ -55,24 +65,53 @@ public class TouchPath implements GameObject {
     }
 
     public void appendPoint(float x, float y) {
-        points.add(Helper.getPointF(x, y));
+        if(!points.isEmpty()) {
+            PointF last = points.peekLast().getPointF();
+
+            float xDiff = (x - last.x);
+            float yDiff = (y - last.y);
+            float length = (float) Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+            int count = Math.round(length / (min_distance * 0.5f));
+
+            if (count >= 1) {
+                for (int i = 1; i < count; i++) {
+                    float targetX = xDiff / count * i + last.x;
+                    float targetY = yDiff / count * i + last.y;
+                    points.add(Helper.getCustomPointF(targetX, targetY));
+                }
+            }
+        }
+
+        points.add(Helper.getCustomPointF(x, y));
         if(points.size() > MAX_POINTS) {
-            points.poll();
+            removePoint();
         }
         connectPoints();
     }
 
+    public void removePoint() {
+        if(!points.isEmpty()) {
+            ObjectPool.getInstance().retrieve(points.get(0));
+            points.poll();
+        }
+    }
+
     public void clearPath() {
         path.reset();
+        for(CustomPointF p : points) {
+            ObjectPool.getInstance().retrieve(p);
+        }
         points.clear();
     }
 
     private void connectPoints() {
         if(points.isEmpty()) return;
         path.reset();
-        path.moveTo(points.get(0).x, points.get(0).y);
+        PointF front = points.get(0).getPointF();
+        path.moveTo(front.x, front.y);
         for(int i = 1; i < points.size(); i++) {
-            path.lineTo(points.get(i).x, points.get(i).y);
+            PointF p = points.get(i).getPointF();
+            path.lineTo(p.x, p.y);
         }
     }
 
@@ -83,12 +122,12 @@ public class TouchPath implements GameObject {
         firstPoint = null;
         lastPoint = null;
         int count = 0;
-        for(PointF point : points) {
-            if (MathHelper.isInside(rect, point)) {
+        for(CustomPointF point : points) {
+            if (MathHelper.isInside(rect, point.getPointF())) {
                 if (firstPoint == null) {
-                    firstPoint = point;
+                    firstPoint = point.getPointF();
                 }
-                lastPoint = point;
+                lastPoint = point.getPointF();
                 count += 1;
             }
         }
