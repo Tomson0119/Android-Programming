@@ -8,6 +8,7 @@ import android.graphics.RectF;
 
 import java.util.LinkedList;
 
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.MathHelper;
 
 public class TouchPath implements GameObject {
@@ -54,7 +55,7 @@ public class TouchPath implements GameObject {
     }
 
     public void appendPoint(float x, float y) {
-        points.add(new PointF(x, y));
+        points.add(Helper.getPointF(x, y));
         if(points.size() > MAX_POINTS) {
             points.poll();
         }

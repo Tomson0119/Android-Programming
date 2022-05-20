@@ -1,12 +1,8 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
-import android.app.slice.Slice;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
@@ -18,6 +14,8 @@ public class SliceObject implements GameObject {
 
     private final PointF center;
     private final PointF[] slicePoints;
+
+    private final float gravity;
 
     private boolean isSliced;
     private float vx0;
@@ -35,6 +33,7 @@ public class SliceObject implements GameObject {
         for(int i=0;i<2;i++) {
             slicePoints[i] = new PointF();
         }
+        gravity = Metrics.floatValue(R.dimen.gravity);
     }
 
     public void init(float x, float y, int imageId) {
@@ -58,7 +57,7 @@ public class SliceObject implements GameObject {
     @Override
     public void update(float elapsed) {
         float dx = vx0 * (float)Math.cos(theta);
-        float dy = -vy0 * (float)Math.sin(theta) + Metrics.floatValue(R.dimen.gravity) * dt;
+        float dy = -vy0 * (float)Math.sin(theta) + gravity * dt;
         dt += elapsed;
 
         if(vx0 < 0.0f) {
@@ -116,29 +115,29 @@ public class SliceObject implements GameObject {
     private void divideHorizontal() {
         RectF origin = images[0].getRect();
 
-        images[1].setPoint(0, Helper.deepCopyPointF(slicePoints[0]));
-        images[1].setPoint(1, Helper.deepCopyPointF(slicePoints[1]));
-        images[1].setPoint(2, new PointF(origin.right, origin.bottom));
-        images[1].setPoint(3, new PointF(origin.left, origin.bottom));
+        images[1].setPoint(0, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
+        images[1].setPoint(1, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
+        images[1].setPoint(2, Helper.getPointF(origin.right, origin.bottom));
+        images[1].setPoint(3, Helper.getPointF(origin.left, origin.bottom));
 
-        images[2].setPoint(0, new PointF(origin.left, origin.top));
-        images[2].setPoint(1, new PointF(origin.right, origin.top));
-        images[2].setPoint(2, Helper.deepCopyPointF(slicePoints[1]));
-        images[2].setPoint(3, Helper.deepCopyPointF(slicePoints[0]));
+        images[2].setPoint(0, Helper.getPointF(origin.left, origin.top));
+        images[2].setPoint(1, Helper.getPointF(origin.right, origin.top));
+        images[2].setPoint(2, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
+        images[2].setPoint(3, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
     }
 
     private void divideVertical() {
         RectF origin = images[0].getRect();
 
-        images[1].setPoint(0, Helper.deepCopyPointF(slicePoints[0]));
-        images[1].setPoint(1, new PointF(origin.right, origin.top));
-        images[1].setPoint(2, new PointF(origin.right, origin.bottom));
-        images[1].setPoint(3, Helper.deepCopyPointF(slicePoints[1]));
+        images[1].setPoint(0, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
+        images[1].setPoint(1, Helper.getPointF(origin.right, origin.top));
+        images[1].setPoint(2, Helper.getPointF(origin.right, origin.bottom));
+        images[1].setPoint(3, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
 
-        images[2].setPoint(0, new PointF(origin.left, origin.top));
-        images[2].setPoint(1, Helper.deepCopyPointF(slicePoints[0]));
-        images[2].setPoint(2, Helper.deepCopyPointF(slicePoints[1]));
-        images[2].setPoint(3, new PointF(origin.left, origin.bottom));
+        images[2].setPoint(0, Helper.getPointF(origin.left, origin.top));
+        images[2].setPoint(1, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
+        images[2].setPoint(2, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
+        images[2].setPoint(3, Helper.getPointF(origin.left, origin.bottom));
     }
 
     public boolean isSliced() {

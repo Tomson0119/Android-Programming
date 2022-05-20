@@ -6,11 +6,17 @@ import android.graphics.Paint;
 
 import java.util.Random;
 
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.ObjectPool;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class ObjectGenerator implements GameObject {
     private static final String TAG = ObjectGenerator.class.getSimpleName();
+
+    private final float min_vx;
+    private final float max_vx;
+    private final float vy;
 
     private final Random random;
     private final float min_interval;
@@ -22,11 +28,14 @@ public class ObjectGenerator implements GameObject {
     private Paint debugPaint;
 
     ObjectGenerator() {
+        min_vx = Metrics.floatValue(R.dimen.min_vx);
+        max_vx = Metrics.floatValue(R.dimen.max_vx);
+        vy = Metrics.floatValue(R.dimen.vy);
+
         random = new Random();
         min_interval = Metrics.floatValue(R.dimen.min_generate_interval);
         max_interval = Metrics.floatValue(R.dimen.max_generate_interval);
-        //Log.d(TAG, "min: " + min_interval);
-        //Log.d(TAG, "max: " + max_interval);
+
         debugPaint = new Paint();
         debugPaint.setColor(Color.RED);
         debugPaint.setTextSize(50.0f);
@@ -51,22 +60,16 @@ public class ObjectGenerator implements GameObject {
     }
 
     private void generateObject() {
-        SliceObject obj = (SliceObject)ObjectPool.getInstance().get(SliceObject.class);
-        if(obj == null) {
-            obj = new SliceObject();
-            ObjectPool.getInstance().add(obj);
-        }
+        SliceObject obj = Helper.getSliceObject();
 
         float pos_x = random.nextFloat() * Metrics.width;
         obj.init(pos_x, Metrics.height, R.mipmap.hamburger);
 
-        float min_vx = Metrics.floatValue(R.dimen.min_vx);
-        float max_vx = Metrics.floatValue(R.dimen.max_vx);
         float vx = random.nextFloat() * (max_vx - min_vx) + min_vx;
         if(pos_x > Metrics.width / 2) {
             vx *= -1.0f;
         }
-        obj.setInitialVel(vx, Metrics.floatValue(R.dimen.vy));
+        obj.setInitialVel(vx, vy);
         GameScene.getInstance().addObject(obj);
     }
 
