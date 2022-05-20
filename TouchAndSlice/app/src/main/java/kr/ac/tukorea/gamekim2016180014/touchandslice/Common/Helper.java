@@ -15,13 +15,13 @@ public class Helper {
         return obj;
     }
 
-    public static PointF getPointF(float x, float y) {
+    public static CustomPointF getCustomPointF(float x, float y) {
         CustomPointF obj = (CustomPointF)ObjectPool.getInstance().get(CustomPointF.class);
         if(obj == null) {
             obj = new CustomPointF();
             ObjectPool.getInstance().add(obj);
         }
         obj.set(x, y);
-        return obj.getPointF();
+        return obj;
     }
 }
