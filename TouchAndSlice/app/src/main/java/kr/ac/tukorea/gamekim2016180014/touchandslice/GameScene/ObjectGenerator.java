@@ -75,7 +75,9 @@ public class ObjectGenerator implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        int cnt = ObjectPool.getInstance().getCount(SliceObject.class);
-        canvas.drawText("Slice object pool count: " + cnt, 10, 600, debugPaint);
+        int sliceObjCnt = ObjectPool.getInstance().getCount(SliceObject.class);
+        int pointFCnt = ObjectPool.getInstance().getCount(CustomPointF.class);
+        canvas.drawText("CustomPointF: " + pointFCnt, 10, 500, debugPaint);
+        canvas.drawText("SliceObject: " + sliceObjCnt, 10, 600, debugPaint);
     }
 }
