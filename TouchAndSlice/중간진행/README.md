@@ -36,17 +36,39 @@ Touch and Slice는 'Fruit Ninja'를 모작하는 게임입니다.
 ## 인 게임 핵심요소
 #### 게임 오브젝트 다이어그램
 ![gameSceneObjects](../../image/GameSceneObjects.png)
+```
+- TouchPath, SliceObject, ObjectGenerator가 GameObject를 상속한다.
+- ObjectGenerator는 ObjectPool을 확인하여 SliceObject를 생성한다.
+- TouchPath는 SliceObject와의 충돌검사를 하여 기울기를 구하고 Object를 반으로 자른다.
+```
 
 #### TouchPath class
 ![touchPath](../../image/touchPathClass.png)
+```
+- 터치 입력마다 현재 위치에 해당하는 포인트 객체를 리스트에 넣는다.
+- 리스트가 최대개수에 도달하면 가장 첫번재 포인트를 제거한다.
+- 업데이트에서도 일정 시간이 지나면 첫번째 포인트를 제거한다.
+- 오브젝트 내부에 포인트가 2개 이상 있으면 충돌처리한다.
+```
 
 #### SliceObject class
 ![sliceObject](../../image/sliceObjectClass.png)
+```
+- 충돌했을 시 계산한 기울기에 따라서 교차지점 2개를 구한다.
+- 교차된 2개의 지점으로 새로운 오브젝트 2개의 클립 사각형을 설정한다.
+```
 
 #### CustomRect class
 ![customRect](../../image/customRectClass.png)
+```
+- 설정된 포인트를 기준으로 클립 사각형을 구성한다.
+- 캔버스에 클립 영역을 설정하여 다음에 이미지를 그릴 때, 해당 부분이 보이지 않도록 한다.
+```
 
 #### ObjectGenerator class
 ![objectGenerator](../../image/objectGeneratorClass.png)
-
+```
+- 랜덤 객체를 이용하여, 랜덤 간격에 랜덤 위치에서 랜덤 속도로 객체를 생성한다.
+- 객체는 오브젝트 풀에 존재하는지 확인해서 꺼낸다.
+```
 
