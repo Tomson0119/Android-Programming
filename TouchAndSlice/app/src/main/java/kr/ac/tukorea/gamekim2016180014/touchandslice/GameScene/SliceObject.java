@@ -3,6 +3,7 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
@@ -14,6 +15,7 @@ public class SliceObject implements GameObject {
 
     private final PointF center;
     private final PointF[] slicePoints;
+    private final PointF[] imagePoints;
 
     private final float gravity;
 
@@ -30,8 +32,12 @@ public class SliceObject implements GameObject {
         }
         center = new PointF();
         slicePoints = new PointF[2];
-        for(int i=0;i<2;i++) {
+        for(int i=0;i<slicePoints.length;i++) {
             slicePoints[i] = new PointF();
+        }
+        imagePoints = new PointF[8];
+        for(int i=0;i<imagePoints.length;i++) {
+            imagePoints[i] = new PointF();
         }
         gravity = Metrics.floatValue(R.dimen.gravity);
     }
@@ -110,34 +116,39 @@ public class SliceObject implements GameObject {
             slicePoints[1].set(center.x, center.y + offset_h);
             divideVertical();
         }
+
+        for(int i=0;i<imagePoints.length/2;i++) {
+            images[1].setPoint(i, imagePoints[i]);
+            images[2].setPoint(i, imagePoints[i+imagePoints.length/2]);
+        }
     }
 
     private void divideHorizontal() {
         RectF origin = images[0].getRect();
 
-        images[1].setPoint(0, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
-        images[1].setPoint(1, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
-        images[1].setPoint(2, Helper.getPointF(origin.right, origin.bottom));
-        images[1].setPoint(3, Helper.getPointF(origin.left, origin.bottom));
+        imagePoints[0].set(slicePoints[0].x, slicePoints[0].y);
+        imagePoints[1].set(slicePoints[1].x, slicePoints[1].y);
+        imagePoints[2].set(origin.right, origin.bottom);
+        imagePoints[3].set(origin.left, origin.bottom);
 
-        images[2].setPoint(0, Helper.getPointF(origin.left, origin.top));
-        images[2].setPoint(1, Helper.getPointF(origin.right, origin.top));
-        images[2].setPoint(2, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
-        images[2].setPoint(3, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
+        imagePoints[4].set(origin.left, origin.top);
+        imagePoints[5].set(origin.right, origin.top);
+        imagePoints[6].set(slicePoints[1].x, slicePoints[1].y);
+        imagePoints[7].set(slicePoints[0].x , slicePoints[0].y);
     }
 
     private void divideVertical() {
         RectF origin = images[0].getRect();
 
-        images[1].setPoint(0, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
-        images[1].setPoint(1, Helper.getPointF(origin.right, origin.top));
-        images[1].setPoint(2, Helper.getPointF(origin.right, origin.bottom));
-        images[1].setPoint(3, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
+        imagePoints[0].set(slicePoints[0].x, slicePoints[0].y);
+        imagePoints[1].set(origin.right, origin.top);
+        imagePoints[2].set(origin.right, origin.bottom);
+        imagePoints[3].set(slicePoints[1].x, slicePoints[1].y);
 
-        images[2].setPoint(0, Helper.getPointF(origin.left, origin.top));
-        images[2].setPoint(1, Helper.getPointF(slicePoints[0].x, slicePoints[0].y));
-        images[2].setPoint(2, Helper.getPointF(slicePoints[1].x, slicePoints[1].y));
-        images[2].setPoint(3, Helper.getPointF(origin.left, origin.bottom));
+        imagePoints[4].set(origin.left, origin.top);
+        imagePoints[5].set(slicePoints[0].x , slicePoints[0].y);
+        imagePoints[6].set(slicePoints[1].x, slicePoints[1].y);
+        imagePoints[7].set(origin.left, origin.bottom);
     }
 
     public boolean isSliced() {
