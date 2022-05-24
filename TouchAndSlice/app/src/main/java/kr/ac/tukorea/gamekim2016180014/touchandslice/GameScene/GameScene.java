@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import java.util.LinkedList;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.BitmapPool;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.ObjectPool;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
@@ -29,6 +30,11 @@ public class GameScene {
     private int scoreIncrement;
     private int score;
 
+    private static final int MAX_FAIL = 3;
+    private Image[] failImages;
+
+    private int failCount;
+
     public void init() {
         gameObjects = new LinkedList<>();
         touchPath = new TouchPath();
@@ -37,6 +43,15 @@ public class GameScene {
 
         scoreIncrement = Metrics.intValue(R.integer.score_increment);
         score = 0;
+
+        float img_len = Metrics.getSize(R.dimen.x_image_len);
+        float img_x = Metrics.width - MAX_FAIL * img_len + img_len / 2;
+        float img_y = Metrics.getSize(R.dimen.x_image_y);
+        failImages = new Image[MAX_FAIL];
+        for(int i = 0; i < failImages.length; i++) {
+            failImages[i] = new Image(R.mipmap.x_white, img_len, img_len);
+            failImages[i].move(img_x + i * img_len, img_y);
+        }
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -99,13 +114,15 @@ public class GameScene {
 
         SliceObject sliceObj = (SliceObject)obj;
         if(touchPath.isCollidedWith(sliceObj)) {
-            AudioPlayer.getInstance().playAudio("ObjSlice");
             float slope = touchPath.getSlope();
             sliceObj.slice(slope);
         }
     }
 
     public void draw(Canvas canvas) {
+        for(Image img : failImages) {
+            img.draw(canvas);
+        }
         for(GameObject obj : gameObjects) {
             obj.draw(canvas);
         }
@@ -114,5 +131,15 @@ public class GameScene {
     public void increaseScore() {
         score += scoreIncrement;
         ScreenView.view.setScore(score);
+    }
+
+    public void increaseFailCount() {
+        if(failCount < MAX_FAIL) {
+            failCount += 1;
+            for(int i=0;i<failCount;i++) {
+                int idx = failImages.length - 1 - i;
+                failImages[idx].setImage(R.mipmap.x_red);
+            }
+        }
     }
 }

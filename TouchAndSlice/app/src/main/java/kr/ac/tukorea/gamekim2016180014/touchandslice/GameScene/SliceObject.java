@@ -3,9 +3,8 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
-import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
@@ -48,8 +47,8 @@ public class SliceObject implements GameObject {
     }
 
     public void init(float x, float y, int mode, int imageId) {
-        float width = Metrics.getSize(R.dimen.image_width);
-        float height = Metrics.getSize(R.dimen.image_height);
+        float width = Metrics.getSize(R.dimen.obj_image_width);
+        float height = Metrics.getSize(R.dimen.obj_image_height);
         for(int i=0;i<3;i++) {
             images[i].init(imageId, width, height);
             images[i].move(x, y);
@@ -107,9 +106,11 @@ public class SliceObject implements GameObject {
     private void processSliceEvent() {
         switch(mode.ordinal()) {
             case 0:
+                AudioPlayer.getInstance().playAudio("ObjSlice");
                 GameScene.getInstance().increaseScore();
                 break;
             case 1:
+                GameScene.getInstance().increaseFailCount();
                 break;
 
             case 2:
