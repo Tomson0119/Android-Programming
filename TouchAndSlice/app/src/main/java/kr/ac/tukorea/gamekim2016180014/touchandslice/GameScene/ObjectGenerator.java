@@ -3,16 +3,33 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.Random;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Helper;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.ObjectPool;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.RandomPicker;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class ObjectGenerator implements GameObject {
     private static final String TAG = ObjectGenerator.class.getSimpleName();
+
+    private static final int[][] OBJ_IMAGE_IDS = {
+            {
+                R.mipmap.banana, R.mipmap.cabbage, R.mipmap.cauliflower,
+                R.mipmap.eggplant, R.mipmap.tomato, R.mipmap.paprika
+            },
+            {
+                R.mipmap.coke, R.mipmap.fried_chicken, R.mipmap.hamburger, R.mipmap.paprika
+            },
+            {
+                R.mipmap.cigarette
+            }
+    };
+
+    private final RandomPicker picker;
 
     private final float min_vx;
     private final float max_vx;
@@ -40,6 +57,8 @@ public class ObjectGenerator implements GameObject {
         debugPaint.setColor(Color.RED);
         debugPaint.setTextSize(50.0f);
         debugPaint.setStrokeWidth(10);
+
+        picker = new RandomPicker(new int[]{65, 25, 10});
     }
 
     @Override
@@ -61,9 +80,12 @@ public class ObjectGenerator implements GameObject {
 
     private void generateObject() {
         SliceObject obj = Helper.getSliceObject();
-
         float pos_x = random.nextFloat() * Metrics.width;
-        obj.init(pos_x, Metrics.height, R.mipmap.hamburger);
+
+        int mode = picker.getRandomNum();
+        int imgId = random.nextInt(OBJ_IMAGE_IDS[mode].length);
+
+        obj.init(pos_x, Metrics.height, mode, OBJ_IMAGE_IDS[mode][imgId]);
 
         float vx = random.nextFloat() * (max_vx - min_vx) + min_vx;
         if(pos_x > Metrics.width / 2) {
