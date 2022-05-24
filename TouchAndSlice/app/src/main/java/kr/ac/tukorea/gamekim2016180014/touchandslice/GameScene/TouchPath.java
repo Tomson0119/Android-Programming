@@ -1,12 +1,10 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 import java.util.LinkedList;
 
@@ -44,7 +42,7 @@ public class TouchPath implements GameObject {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(STROKE_WIDTH);
 
-        min_distance = Metrics.getSize(R.dimen.image_width);
+        min_distance = Metrics.getSize(R.dimen.obj_image_width);
 
         path = new Path();
     }

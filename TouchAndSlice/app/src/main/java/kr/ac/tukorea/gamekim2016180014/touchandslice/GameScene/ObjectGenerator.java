@@ -99,7 +99,5 @@ public class ObjectGenerator implements GameObject {
     public void draw(Canvas canvas) {
         int sliceObjCnt = ObjectPool.getInstance().getCount(SliceObject.class);
         int pointFCnt = ObjectPool.getInstance().getCount(CustomPointF.class);
-        canvas.drawText("CustomPointF: " + pointFCnt, 10, 500, debugPaint);
-        canvas.drawText("SliceObject: " + sliceObjCnt, 10, 600, debugPaint);
     }
 }

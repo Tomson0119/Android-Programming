@@ -2,7 +2,6 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.SoundPool;
 import android.os.Bundle;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
@@ -14,7 +13,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        AudioPlayer.getInstance().addAudio(this, "ObjSlice", R.raw.object_slice);
+        AudioPlayer.getInstance().addAudio(this, "ObjSlice", R.raw.normal_obj_slice);
     }
 
     @Override

@@ -103,7 +103,7 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         GameScene.getInstance().draw(canvas);
-        canvas.drawText(String.valueOf((int)(1/elapsedSec)), 10, 100, fpsPaint);
+        canvas.drawText(String.valueOf((int)(1/elapsedSec)), 10, 500, fpsPaint);
     }
 
     public void onPause() {
