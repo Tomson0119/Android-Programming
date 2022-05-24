@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="score_text_size">30dp</dimen>
+    <dimen name="best_score_text_size">20dp</dimen>
     <dimen name="time_text_size">40dp</dimen>
     <dimen name="time_text_padding_horizontal">20dp</dimen>
     <dimen name="obj_image_width">100dp</dimen>

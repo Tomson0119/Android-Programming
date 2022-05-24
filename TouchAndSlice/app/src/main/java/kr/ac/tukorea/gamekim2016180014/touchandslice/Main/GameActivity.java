@@ -2,18 +2,37 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.webkit.WebView;
+import android.widget.TextView;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.GameScene;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.ScreenView;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameActivity extends AppCompatActivity {
+    private int bestScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        AudioPlayer.getInstance().addAudio(this, "ObjSlice", R.raw.normal_obj_slice);
+
+        AudioPlayer.getInstance().addAudio(this, R.raw.normal_obj_spawn);
+        AudioPlayer.getInstance().addAudio(this, R.raw.normal_obj_slice);
+        AudioPlayer.getInstance().addAudio(this, R.raw.bad_obj_spawn);
+        AudioPlayer.getInstance().addAudio(this, R.raw.trap_obj_slice);
+        AudioPlayer.getInstance().addAudio(this, R.raw.killer_obj_slice);
+        AudioPlayer.getInstance().addAudio(this, R.raw.game_over);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        bestScore = prefs.getInt("bestScore", 0);
+        TextView bestScoreView = (TextView)findViewById(R.id.bestScoreTextId);
+        bestScoreView.setText("Best: " + String.valueOf(bestScore));
     }
 
     @Override

@@ -142,4 +142,12 @@ public class GameScene {
             }
         }
     }
+
+    public void GameOver() {
+
+    }
+
+    public int getScore() {
+        return score;
+    }
 }
