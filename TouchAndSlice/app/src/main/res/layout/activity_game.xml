@@ -13,11 +13,26 @@
         android:layout_height="match_parent"/>
 
     <TextView
+        android:id="@+id/scoreTextId"
+        android:layout_gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:text="0"
+        android:textColor="@color/black"
+        android:fontFamily="@font/bitro"
+        android:textSize="@dimen/score_text_size"
+        />
+
+    <TextView
         android:id="@+id/timeTextId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:paddingTop="10dp"
         android:text="00:00"
+        android:fontFamily="@font/bitro"
         android:textColor="@color/black"
         android:textSize="@dimen/time_text_size"
         android:paddingHorizontal="@dimen/time_text_padding_horizontal"/>

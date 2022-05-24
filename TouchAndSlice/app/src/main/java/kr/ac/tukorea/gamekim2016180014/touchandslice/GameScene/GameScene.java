@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.ObjectPool;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameScene {
     private static final String TAG = GameScene.class.getSimpleName();
@@ -25,12 +26,17 @@ public class GameScene {
 
     private TouchPath touchPath;
     private LinkedList<GameObject> gameObjects;
+    private int scoreIncrement;
+    private int score;
 
     public void init() {
         gameObjects = new LinkedList<>();
         touchPath = new TouchPath();
         gameObjects.add(touchPath);
         gameObjects.add(new ObjectGenerator());
+
+        scoreIncrement = Metrics.intValue(R.integer.score_increment);
+        score = 0;
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -103,5 +109,10 @@ public class GameScene {
         for(GameObject obj : gameObjects) {
             obj.draw(canvas);
         }
+    }
+
+    public void increaseScore() {
+        score += scoreIncrement;
+        ScreenView.view.setScore(score);
     }
 }

@@ -19,7 +19,8 @@ import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class ScreenView extends View implements Choreographer.FrameCallback {
     public static ScreenView view;
-    public static TextView timeTextView;
+    private static TextView timeTextView;
+    private static TextView scoreTextView;
     private static boolean loop;
 
     private float totalSec;
@@ -49,7 +50,10 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
         if(!initialized) {
             initialized = true;
             FrameLayout parent = (FrameLayout)getParent();
+
             timeTextView = (TextView)parent.findViewById(R.id.timeTextId);
+            scoreTextView = (TextView)parent.findViewById(R.id.scoreTextId);
+
             GameScene.getInstance().init();
             Choreographer.getInstance().postFrameCallback(this);
         }
@@ -113,5 +117,9 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
             Choreographer.getInstance().postFrameCallback(this);
             System.out.println("Resumed!");
         }
+    }
+
+    public void setScore(int score) {
+        scoreTextView.setText(String.valueOf(score));
     }
 }

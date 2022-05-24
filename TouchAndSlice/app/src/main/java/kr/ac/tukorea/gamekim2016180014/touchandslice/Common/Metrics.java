@@ -25,4 +25,9 @@ public class Metrics {
         res.getValue(dimenResId, outValue, true);
         return outValue.getFloat();
     }
+
+    public static int intValue(int dimenResId) {
+        Resources res = ScreenView.view.getResources();
+        return res.getInteger(dimenResId);
+    }
 }

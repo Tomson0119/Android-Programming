@@ -25,6 +25,11 @@ public class SliceObject implements GameObject {
     private float dt;
     private double theta;
 
+    private enum Mode {
+        NORMAL, TRAP, KILLER
+    }
+    private Mode mode;
+
     public SliceObject() {
         images = new Image[3];
         for(int i=0;i<3;i++) {
@@ -42,13 +47,14 @@ public class SliceObject implements GameObject {
         gravity = Metrics.floatValue(R.dimen.gravity);
     }
 
-    public void init(float x, float y, int imageId) {
+    public void init(float x, float y, int mode, int imageId) {
         float width = Metrics.getSize(R.dimen.image_width);
         float height = Metrics.getSize(R.dimen.image_height);
         for(int i=0;i<3;i++) {
             images[i].init(imageId, width, height);
             images[i].move(x, y);
         }
+        this.mode = Mode.values()[mode];
         center.set(x, y);
         isSliced = false;
     }
@@ -94,7 +100,21 @@ public class SliceObject implements GameObject {
 
     public void slice(float slope) {
         isSliced = true;
+        processSliceEvent();
         setSlicePoints(slope);
+    }
+
+    private void processSliceEvent() {
+        switch(mode.ordinal()) {
+            case 0:
+                GameScene.getInstance().increaseScore();
+                break;
+            case 1:
+                break;
+
+            case 2:
+                break;
+        }
     }
 
     private void setSlicePoints(float slope) {
