@@ -17,14 +17,14 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        AudioPlayer.getInstance().addAudio(this, "Button", R.raw.game_start_button);
+        AudioPlayer.getInstance().addAudio(this, R.raw.game_start_button);
     }
 
     public void onGameStartBtn(View view) {
         Button btn = (Button)view;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
-        AudioPlayer.getInstance().playAudio("Button");
+        AudioPlayer.getInstance().playAudio(R.raw.game_start_button);
     }
 
     public void onExitBtn(View view) {

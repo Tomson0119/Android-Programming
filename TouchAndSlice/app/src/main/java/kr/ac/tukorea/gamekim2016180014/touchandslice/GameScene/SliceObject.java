@@ -53,9 +53,22 @@ public class SliceObject implements GameObject {
             images[i].init(imageId, width, height);
             images[i].move(x, y);
         }
-        this.mode = Mode.values()[mode];
+        setObjMode(mode);
         center.set(x, y);
         isSliced = false;
+    }
+
+    private void setObjMode(int mode) {
+        this.mode = Mode.values()[mode];
+        switch(mode) {
+            case 0:
+                AudioPlayer.getInstance().playAudio(R.raw.normal_obj_spawn);
+                break;
+            case 1:
+            case 2:
+                AudioPlayer.getInstance().playAudio(R.raw.bad_obj_spawn);
+                break;
+        }
     }
 
     public void setInitialVel(float x, float y) {
@@ -106,14 +119,18 @@ public class SliceObject implements GameObject {
     private void processSliceEvent() {
         switch(mode.ordinal()) {
             case 0:
-                AudioPlayer.getInstance().playAudio("ObjSlice");
+                AudioPlayer.getInstance().playAudio(R.raw.normal_obj_slice);
                 GameScene.getInstance().increaseScore();
                 break;
+
             case 1:
+                AudioPlayer.getInstance().playAudio(R.raw.trap_obj_slice);
                 GameScene.getInstance().increaseFailCount();
                 break;
 
             case 2:
+                AudioPlayer.getInstance().playAudio(R.raw.killer_obj_slice);
+                GameScene.getInstance().GameOver();
                 break;
         }
     }

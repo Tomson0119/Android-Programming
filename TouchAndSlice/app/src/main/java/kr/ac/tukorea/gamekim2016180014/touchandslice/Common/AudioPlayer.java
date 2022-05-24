@@ -15,7 +15,7 @@ public class AudioPlayer {
     private static final float DEFAULT_VOLUME = 50.0f;
     private static final int MAX_STREAM = 5;
     private static SoundPool soundPool;
-    private static HashMap<String, Integer> soundIds;
+    private static HashMap<Integer, Integer> soundIds;
     private static AudioPlayer instance;
 
     private AudioPlayer() {
@@ -40,14 +40,14 @@ public class AudioPlayer {
         return instance;
     }
 
-    public void addAudio(Context context, String name, int rawId) {
-        int id = soundPool.load(context, rawId, 1);
-        soundIds.put(name, id);
+    public void addAudio(Context context, int rawId) {
+        int soundId = soundPool.load(context, rawId, 1);
+        soundIds.put(rawId, soundId);
     }
 
-    public void playAudio(String name) {
-        if(soundIds.containsKey(name)) {
-            int id = soundIds.get(name);
+    public void playAudio(int rawId) {
+        if(soundIds.containsKey(rawId)) {
+            int id = soundIds.get(rawId);
             int stream = soundPool.play(id, DEFAULT_VOLUME, DEFAULT_VOLUME, 1, 0, 1.0f);
             soundPool.setVolume(stream, DEFAULT_VOLUME, DEFAULT_VOLUME);
         }
