@@ -21,14 +21,12 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onGameStartBtn(View view) {
-        Button btn = (Button)view;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
         AudioPlayer.getInstance().playAudio(R.raw.game_start_button);
     }
 
     public void onExitBtn(View view) {
-        Button btn = (Button)view;
         System.out.println("Exit button has clicked");
     }
 }
