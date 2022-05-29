@@ -9,6 +9,7 @@
     tools:context=".Main.ResultActivity">
 
     <TextView
+        android:id="@+id/resultScoreTextId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -19,6 +20,7 @@
         android:textSize="50dp" />
 
     <TextView
+        android:id="@+id/resultTimeTextId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bitro"
@@ -32,6 +34,7 @@
         tools:layout_editor_absoluteY="169dp" />
 
     <ImageButton
+        android:id="@+id/restartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/restart_button"
@@ -40,9 +43,7 @@
         android:scaleType="center"
         android:scaleX="2"
         android:scaleY="2"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="283dp" />
+        android:onClick="onRestartBtnClick"/>
 
 
 </LinearLayout>

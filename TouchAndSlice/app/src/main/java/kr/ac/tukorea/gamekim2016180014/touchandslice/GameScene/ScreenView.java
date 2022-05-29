@@ -1,9 +1,12 @@
 package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
@@ -15,18 +18,26 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Main.ResultActivity;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class ScreenView extends View implements Choreographer.FrameCallback {
+    private static String TAG = ScreenView.class.getSimpleName();
     public static ScreenView view;
+
     private static TextView timeTextView;
     private static TextView scoreTextView;
+
     private static boolean loop;
 
     private float totalSec;
     private float elapsedSec;
     private long prevNs;
     private boolean initialized;
+
+    private int currentScore;
+    private int bestScore;
+
     private final Paint fpsPaint;
 
     public ScreenView(Context context, @Nullable AttributeSet attrs) {
@@ -119,7 +130,15 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
         }
     }
 
-    public void setScore(int score) {
-        scoreTextView.setText(String.valueOf(score));
+    public void increaseScore(int increment) {
+        currentScore += increment;
+        scoreTextView.setText(String.valueOf(currentScore));
+    }
+
+    public void loadResultActivity() {
+        Intent intent = new Intent(getContext(), ResultActivity.class);
+        intent.putExtra("time", totalSec);
+        intent.putExtra("score", currentScore);
+        getContext().startActivity(intent);
     }
 }

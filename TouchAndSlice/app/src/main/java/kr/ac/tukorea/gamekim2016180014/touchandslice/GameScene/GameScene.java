@@ -28,7 +28,6 @@ public class GameScene {
     private TouchPath touchPath;
     private LinkedList<GameObject> gameObjects;
     private int scoreIncrement;
-    private int score;
 
     private static final int MAX_FAIL = 3;
     private Image[] failImages;
@@ -42,7 +41,6 @@ public class GameScene {
         gameObjects.add(new ObjectGenerator());
 
         scoreIncrement = Metrics.intValue(R.integer.score_increment);
-        score = 0;
 
         float img_len = Metrics.getSize(R.dimen.x_image_len);
         float img_x = Metrics.width - MAX_FAIL * img_len + img_len / 2;
@@ -129,8 +127,7 @@ public class GameScene {
     }
 
     public void increaseScore() {
-        score += scoreIncrement;
-        ScreenView.view.setScore(score);
+        ScreenView.view.increaseScore(scoreIncrement);
     }
 
     public void increaseFailCount() {
@@ -141,13 +138,12 @@ public class GameScene {
                 failImages[idx].setImage(R.mipmap.x_red);
             }
         }
+        if(failCount >= MAX_FAIL) {
+            GameOver();
+        }
     }
 
     public void GameOver() {
-
-    }
-
-    public int getScore() {
-        return score;
+        ScreenView.view.loadResultActivity();
     }
 }
