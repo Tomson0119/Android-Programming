@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/menu_background"
+    tools:context=".Main.ResultActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="120dp"
+        android:fontFamily="@font/bitro"
+        android:text="Score: 0"
+        android:textColor="@color/black"
+        android:textSize="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bitro"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="120dp"
+        android:text="Time: 0min 0sec"
+        android:textColor="@color/black"
+        android:textSize="50dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="169dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/restart_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:scaleType="center"
+        android:scaleX="2"
+        android:scaleY="2"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="336dp"
+        tools:layout_editor_absoluteY="283dp" />
+
+
+</LinearLayout>
