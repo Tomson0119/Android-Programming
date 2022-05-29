@@ -22,7 +22,7 @@ public class ObjectGenerator implements GameObject {
                 R.mipmap.eggplant, R.mipmap.tomato, R.mipmap.paprika
             },
             {
-                R.mipmap.coke, R.mipmap.fried_chicken, R.mipmap.hamburger, R.mipmap.paprika
+                R.mipmap.coke, R.mipmap.fried_chicken, R.mipmap.hamburger, R.mipmap.pizza
             },
             {
                 R.mipmap.cigarette
