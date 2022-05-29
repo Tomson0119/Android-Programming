@@ -86,6 +86,9 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     }
 
     private void calculateTimeStep(long currNs) {
+        if(elapsedSec < 0.0f) {
+            prevNs = currNs;
+        }
         elapsedSec = (float)(currNs - prevNs) / 1_000_000_000;
         if(prevNs == 0) elapsedSec = 0.0f;
         prevNs = currNs;
@@ -119,6 +122,7 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
 
     public void onPause() {
         loop = false;
+        elapsedSec = -1.0f;
         System.out.println("Paused!");
     }
 

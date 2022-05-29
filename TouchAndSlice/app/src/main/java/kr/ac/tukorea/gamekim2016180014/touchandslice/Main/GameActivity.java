@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
@@ -16,11 +18,14 @@ import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameActivity extends AppCompatActivity {
     private int bestScore;
+    private boolean paused;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        paused = false;
 
         AudioPlayer.getInstance().addAudio(this, R.raw.normal_obj_spawn);
         AudioPlayer.getInstance().addAudio(this, R.raw.normal_obj_slice);
@@ -51,5 +56,18 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy() {
         ScreenView.view = null;
         super.onDestroy();
+    }
+
+    public void onResumeOrPauseBtn(View view) {
+        ImageButton btn = (ImageButton)view;
+        if(!paused) {
+            btn.setImageResource(R.mipmap.play_button);
+            onPause();
+            paused = true;
+        } else {
+            btn.setImageResource(R.mipmap.pause_button);
+            paused = false;
+            onResume();
+        }
     }
 }
