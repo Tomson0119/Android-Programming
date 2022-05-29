@@ -124,7 +124,7 @@ public class SliceObject implements GameObject {
                 break;
 
             case 1:
-                AudioPlayer.getInstance().playAudio(R.raw.trap_obj_slice);
+                AudioPlayer.getInstance().playAudio(R.raw.killer_obj_slice);
                 GameScene.getInstance().increaseFailCount();
                 break;
 
