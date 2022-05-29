@@ -30,7 +30,7 @@ public class ResultActivity extends AppCompatActivity {
         timeText.setText("Time: " + min + "min " + sec + "sec");
     }
 
-    protected void onRestartBtnClick(View view) {
+    public void onRestartBtnClick(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
