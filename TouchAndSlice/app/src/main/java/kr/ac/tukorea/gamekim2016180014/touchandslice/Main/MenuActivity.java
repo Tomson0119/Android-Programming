@@ -27,6 +27,6 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onExitBtn(View view) {
-        System.out.println("Exit button has clicked");
+        super.onDestroy();
     }
 }
