@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
+import kr.ac.tukorea.gamekim2016180014.touchandslice.Main.GameActivity;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Main.ResultActivity;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
@@ -36,21 +37,12 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     private boolean initialized;
 
     private int currentScore;
-    private int bestScore;
-
-    private final Paint fpsPaint;
 
     public ScreenView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
         view = this;
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
         loop = true;
-
-        fpsPaint = new Paint();
-        fpsPaint.setColor(Color.RED);
-        fpsPaint.setTextSize(100);
     }
 
     @Override
@@ -117,20 +109,17 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         GameScene.getInstance().draw(canvas);
-        canvas.drawText(String.valueOf((int)(1/elapsedSec)), 10, 500, fpsPaint);
     }
 
     public void onPause() {
         loop = false;
         elapsedSec = -1.0f;
-        System.out.println("Paused!");
     }
 
     public void onResume() {
         if(loop == false) {
             loop = true;
             Choreographer.getInstance().postFrameCallback(this);
-            System.out.println("Resumed!");
         }
     }
 
@@ -139,10 +128,17 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
         scoreTextView.setText(String.valueOf(currentScore));
     }
 
+    public int getScore() {
+        return currentScore;
+    }
+
     public void loadResultActivity() {
-        Intent intent = new Intent(getContext(), ResultActivity.class);
+        GameActivity activity = (GameActivity)getContext();
+        activity.saveBestScore();
+
+        Intent intent = new Intent(activity, ResultActivity.class);
         intent.putExtra("time", totalSec);
         intent.putExtra("score", currentScore);
-        getContext().startActivity(intent);
+        activity.startActivity(intent);
     }
 }

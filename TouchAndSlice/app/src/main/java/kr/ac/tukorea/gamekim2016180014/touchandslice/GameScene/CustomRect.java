@@ -54,7 +54,6 @@ public class CustomRect {
     public void draw(Canvas canvas) {
         composePath();
         canvas.clipPath(clipShapePath);
-        canvas.drawPath(clipShapePath, linePaint);
     }
 
     private void composePath() {

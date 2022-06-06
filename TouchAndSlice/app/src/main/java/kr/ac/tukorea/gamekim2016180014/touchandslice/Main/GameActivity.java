@@ -70,4 +70,11 @@ public class GameActivity extends AppCompatActivity {
             onResume();
         }
     }
+
+    public void saveBestScore() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int currScore = ScreenView.view.getScore();
+        int best = (currScore > bestScore) ? currScore : bestScore;
+        prefs.edit().putInt("bestScore", best).apply();
+    }
 }
