@@ -17,6 +17,7 @@ import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.ScreenView;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class GameActivity extends AppCompatActivity {
+    private static String TAG = GameActivity.class.getSimpleName();
     private int bestScore;
     private boolean paused;
 
@@ -34,10 +35,7 @@ public class GameActivity extends AppCompatActivity {
         AudioPlayer.getInstance().addAudio(this, R.raw.killer_obj_slice);
         AudioPlayer.getInstance().addAudio(this, R.raw.game_over);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        bestScore = prefs.getInt("bestScore", 0);
-        TextView bestScoreView = (TextView)findViewById(R.id.bestScoreTextId);
-        bestScoreView.setText("Best: " + String.valueOf(bestScore));
+        loadBestScore();
     }
 
     @Override
@@ -71,10 +69,20 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public void loadBestScore() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        bestScore = prefs.getInt("bestScore", 0);
+        TextView bestScoreView = (TextView)findViewById(R.id.bestScoreTextId);
+        bestScoreView.setText("Best: " + String.valueOf(bestScore));
+    }
+
     public void saveBestScore() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int currScore = ScreenView.view.getScore();
-        int best = (currScore > bestScore) ? currScore : bestScore;
-        prefs.edit().putInt("bestScore", best).apply();
+        bestScore = (currScore > bestScore) ? currScore : bestScore;
+        TextView bestScoreView = (TextView)findViewById(R.id.bestScoreTextId);
+        bestScoreView.setText("Best: " + String.valueOf(bestScore));
+        prefs.edit().putInt("bestScore", bestScore).apply();
     }
+
 }

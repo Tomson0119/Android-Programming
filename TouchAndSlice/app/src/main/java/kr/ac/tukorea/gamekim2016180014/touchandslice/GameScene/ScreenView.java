@@ -139,6 +139,17 @@ public class ScreenView extends View implements Choreographer.FrameCallback {
         Intent intent = new Intent(activity, ResultActivity.class);
         intent.putExtra("time", totalSec);
         intent.putExtra("score", currentScore);
+
+        reset();
+
         activity.startActivity(intent);
+    }
+
+    public void reset() {
+        currentScore = 0;
+        scoreTextView.setText(String.valueOf(currentScore));
+        totalSec = 0;
+        elapsedSec = 0;
+        prevNs = 0;
     }
 }

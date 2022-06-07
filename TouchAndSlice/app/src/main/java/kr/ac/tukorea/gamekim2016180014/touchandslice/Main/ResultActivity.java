@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene.GameScene;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.R;
 
 public class ResultActivity extends AppCompatActivity {
@@ -31,7 +32,6 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void onRestartBtnClick(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

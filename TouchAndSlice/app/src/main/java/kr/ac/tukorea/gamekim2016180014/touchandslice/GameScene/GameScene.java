@@ -2,6 +2,7 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 
 import android.graphics.Canvas;
 import android.graphics.PointF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,7 @@ public class GameScene {
             failImages[i] = new Image(R.mipmap.x_white, img_len, img_len);
             failImages[i].move(img_x + i * img_len, img_y);
         }
+        failCount = 0;
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -144,6 +146,7 @@ public class GameScene {
     }
 
     public void GameOver() {
+        init();
         ScreenView.view.loadResultActivity();
     }
 }

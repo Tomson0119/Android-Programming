@@ -3,6 +3,7 @@ package kr.ac.tukorea.gamekim2016180014.touchandslice.GameScene;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.AudioPlayer;
 import kr.ac.tukorea.gamekim2016180014.touchandslice.Common.Metrics;
