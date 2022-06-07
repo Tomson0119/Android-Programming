@@ -80,7 +80,7 @@ public class SliceObject implements GameObject {
 
     @Override
     public void update(float elapsed) {
-        float dx = vx0 * (float)Math.cos(theta);
+        float dx = vx0 * (float)Math.cos(theta) * 50.0f * elapsed;
         float dy = -vy0 * (float)Math.sin(theta) + gravity * dt;
         dt += elapsed;
 

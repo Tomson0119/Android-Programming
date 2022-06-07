@@ -14,5 +14,5 @@
     <dimen name="max_generate_interval">1.5</dimen>
     <dimen name="min_vx">11.0</dimen>
     <dimen name="max_vx">23.0</dimen>
-    <dimen name="vy">40.0</dimen>
+    <dimen name="vy">35.0</dimen>
 </resources>
